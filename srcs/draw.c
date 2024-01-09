@@ -6,13 +6,11 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:20:15 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/04 17:11:48 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/09 16:53:29 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-#define RED 0xff0000
 
 static void	my_mlx_pixel_put(t_cub *cub, int x, int y, int color)
 {
@@ -49,17 +47,91 @@ void	draw_square(t_cub *cub, int px, int py, int size, int color)
 	{
 		for (int x = 0; x < size; x++)
 		{
+			// my_mlx_pixel_put(cub, px + cos(cub->p.pa)*x, py + sin(cub->p.pa)*y, color);
 			my_mlx_pixel_put(cub, px + x, py + y, color);
 		}
 	}
 }
 
+/*
+void	draw_square_player(t_cub *cub, int px, int py, int size, int color)
+{
+	for (int y = 0; y < size; y++)
+	{
+		// for (int x = 0; x < size; x++)
+		// {
+		// 	// my_mlx_pixel_put(cub, px + cos(cub->p.pa)*x, py + sin(cub->p.pa)*y, color);
+		// 	my_mlx_pixel_put(cub, px + x, py + y, color);
+		// }
+		draw_line(cub, px, py, px + cos(M_PI - cub->p.pa) * 5, \
+			py + y + sin(M_PI - cub->p.pa) * 5, color, 0);
+	}
+}
+*/
+
+int cal_index(t_cub *cub, double dx, double dy)
+{
+	return ((int) (((int)(dy / (double)cub->map_s) * cub->map_x) + (int)(dx / (double)cub->map_s)));
+}
+
+/* still in this */
+void	draw_ray(t_cub *cub)
+{
+	int	hit = 0;
+
+	double	dx;
+	double	dy;
+	double	i = cub->p.pa - (M_PI / 6);
+	while (i <= cub->p.pa + (M_PI / 6))
+	{
+		dx = cub->p.px;
+		dy = cub->p.py;
+		while (hit == 0)
+		{
+			// dx += cub->p.pdx;
+			// dy += cub->p.pdy;
+			dx += cos(cub->p.pa + i);
+			dy += sin(cub->p.pa + i);
+			if (cub->map[cal_index(cub, dx, dy)] == 1)
+			{
+				// printf("===============hit==============");
+				hit = 1;
+			}
+
+		}
+		draw_line(cub, cub->p.px, cub->p.py, dx, dy, RED, 0);
+		printf ("i: %f\n", i);
+		i += M_PI / 6  ;
+		hit = 0;
+	}
+	// debug
+	// printf ("px: %f, py: %f\n", cub->p.px, cub->p.py);
+	// printf ("dx: %f, dy: %f\n", dx, dy);
+	// printf ("index: %d\n", cal_index(cub, dx, dy));
+	
+	
+}
+
+
 void	draw_player (t_cub *cub)
 {
-	draw_square(cub, cub->p.px, cub->p.py, 10, RED);
-	my_mlx_pixel_put(cub, cub->p.px + cub->p.pdx*5, cub->p.py + cub->p.pdy*5, RED);
-	draw_line(cub, cub->p.px, cub->p.py, cub->p.px + cub->p.pdx*5, \
-		cub->p.py + cub->p.pdy*5, RED, 0);
+	// draw_square_player(cub, cub->p.px, cub->p.py, 10, RED);
+	// draw_square(cub, cub->p.pdx*3, cub->p.pdy*3, 7, RED);
+
+	/* view direction */
+	// draw_line(cub, cub->p.px, cub->p.py, cub->p.px + cub->p.pdx*5, \
+	// 	cub->p.py + cub->p.pdy*5, RED, 0);
+	
+	/* point direction */
+	my_mlx_pixel_put(cub, cub->p.px + cub->p.pdx*5, cub->p.py + cub->p.pdy*5, GREEN);
+
+	/* point of view */
+	draw_line(cub, cub->p.px, cub->p.py, cub->p.px - sin(M_PI - cub->p.pa)*10,\
+		cub->p.py - cos(M_PI - cub->p.pa)*10, BLUE, 0);
+	draw_line(cub, cub->p.px, cub->p.py, cub->p.px + sin(M_PI - cub->p.pa)*10,\
+		cub->p.py + cos(M_PI - cub->p.pa)*10, BLUE, 0);
+
+	draw_ray(cub);
 }
 
 void	draw_map (t_cub *cub)
@@ -81,9 +153,11 @@ void	draw_map (t_cub *cub)
 	}
 }
 
+
+
 void    draw(t_cub *cub)
 {
-	ft_bzero(cub->addr, SCREEN_HEIGHT * SCREEN_HEIGHT * (cub->bpp / 8));
+	ft_bzero(cub->addr, SCREEN_HEIGHT * SCREEN_WIDTH * (cub->bpp / 8));
 	draw_map(cub);
 	draw_player(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);

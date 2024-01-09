@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:36:21 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/04 15:03:12 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/09 14:02:13 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@
 # define KEY_S 1
 # define KEY_D 2
 # define KEY_A 0
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+
+# define LEN 5
+
+# define RED 0xff0000
+# define GREEN 0xff00
+# define BLUE 0xff
 
 typedef struct s_player
 {
