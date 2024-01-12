@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:04:43 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/09 14:20:22 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/10 08:48:59 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 int	map[] = {
 	1, 1, 1, 1, 1, 1, 1, 1,
 	1, 0, 1, 0, 0, 0, 0, 1,
-	1, 0, 1, 0, 0, 'P', 0, 1,
+	1, 0, 1, 0, 0, 0, 0, 1,
 	1, 0, 1, 0, 0, 0, 0, 1,
 	1, 0, 0, 0, 0, 0, 0, 1,
 	1, 0, 0, 0, 0, 1, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
+	1, 'P', 0, 0, 0, 0, 0, 1,
 	1, 1, 1, 1, 1, 1, 1, 1,
 };
 
 void	set_delta(t_player *p, int len)
 {
 	p->pdx = cos(p->pa) * len;
-	p->pdy = sin(p->pa) * len;
+	p->pdy = -sin(p->pa) * len;
+
+	/* debug */
+	// printf ("set_data angle: %f\n", p->pa);
 }
 
 int	init_player(t_cub *cub)
@@ -39,7 +42,7 @@ int	init_player(t_cub *cub)
 			{
 				cub->p.px = x * cub->map_s + (cub->map_s / 2);
 				cub->p.py = y * cub->map_s + (cub->map_s / 2);
-				cub->p.pa = 3 * M_PI / 2;
+				cub->p.pa = M_PI_4;
 				set_delta(&cub->p, LEN);
 				return (0);
 			}
@@ -58,7 +61,7 @@ int	init_cub(t_cub *cub)
 	cub->map = map;
 	cub->map_x = 8;
 	cub->map_y = 8;
-	cub->map_s = 32;
+	cub->map_s = SCREEN_WIDTH / cub->map_x;
 	init_player(cub);
 	return (0);
 }
@@ -122,16 +125,16 @@ int	key_hook(int key, void *param)
 	}
 	if (key == KEY_LEFT)
 	{
-		p->pa -= 0.1;
-		if (p->pa < 0)
-			p->pa += 2 * M_PI;
+		p->pa += 0.1;
+		if (p->pa > 2 * M_PI)
+			p->pa -= 2 * M_PI;
 		set_delta(p, LEN);
 	}
 	if (key == KEY_RIGHT)
 	{
-		p->pa += 0.1;
-		if (p->pa > 2 * M_PI)
-			p->pa -= 2 * M_PI;
+		p->pa -= 0.1;
+		if (p->pa < 0)
+			p->pa += 2 * M_PI;
 		set_delta(p, LEN);
 	}
 	draw(cub);

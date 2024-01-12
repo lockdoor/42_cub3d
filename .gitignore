@@ -2,3 +2,4 @@ minilibx_opengl.tgz
 cub3d
 *.o
 libmlx.a
+.vscode

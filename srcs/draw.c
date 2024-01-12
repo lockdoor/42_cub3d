@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:20:15 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/09 16:53:29 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/11 08:29:19 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,24 +74,42 @@ int cal_index(t_cub *cub, double dx, double dy)
 	return ((int) (((int)(dy / (double)cub->map_s) * cub->map_x) + (int)(dx / (double)cub->map_s)));
 }
 
-/* still in this */
+void	draw_wall(t_cub *cub, double dx, double dy, int color, int col)
+{
+	(void) dx;
+	(void) dy;
+	(void) color;
+	(void) col;
+	double wall_person = 1.5;
+	double dist_y = dy - cub->p.py;
+	double wall_hight_percent = fabs(SCREEN_HEIGHT - dist_y)  * 100 / SCREEN_HEIGHT;
+	double wall_hight = SCREEN_HEIGHT * wall_person * (fabs(dist_y)  * 100 / SCREEN_HEIGHT) / 100;
+	printf ("wall_hight_percent: %f, dist_y: %f\n", wall_hight_percent, dist_y);
+	for (int y = 0; y < cub->map_y * cub->map_s; y++ )
+	{
+		if (y > wall_hight)
+			my_mlx_pixel_put(cub, col, y, color);
+	}
+}
+
 void	draw_ray(t_cub *cub)
 {
 	int	hit = 0;
 
 	double	dx;
 	double	dy;
-	double	i = cub->p.pa - (M_PI / 6);
-	while (i <= cub->p.pa + (M_PI / 6))
+	// double 	width = cub->map_x * cub->map_s;
+	double	ra = (M_PI / 3) / (double)SCREEN_WIDTH;
+	// printf ("line: %f\n", line);
+	double	i = M_PI / 6;
+	for (int col = 0; col < SCREEN_WIDTH; col++)
 	{
 		dx = cub->p.px;
 		dy = cub->p.py;
 		while (hit == 0)
 		{
-			// dx += cub->p.pdx;
-			// dy += cub->p.pdy;
 			dx += cos(cub->p.pa + i);
-			dy += sin(cub->p.pa + i);
+			dy -= sin(cub->p.pa + i);
 			if (cub->map[cal_index(cub, dx, dy)] == 1)
 			{
 				// printf("===============hit==============");
@@ -99,17 +117,16 @@ void	draw_ray(t_cub *cub)
 			}
 
 		}
-		draw_line(cub, cub->p.px, cub->p.py, dx, dy, RED, 0);
-		printf ("i: %f\n", i);
-		i += M_PI / 6  ;
+		// draw_line(cub, cub->p.px, cub->p.py, dx, dy, RED, 0);
+		draw_wall(cub, dx, dy, RED, col);
+		// printf ("i: %f\n", i);
+		i -= ra ;
 		hit = 0;
 	}
 	// debug
 	// printf ("px: %f, py: %f\n", cub->p.px, cub->p.py);
 	// printf ("dx: %f, dy: %f\n", dx, dy);
 	// printf ("index: %d\n", cal_index(cub, dx, dy));
-	
-	
 }
 
 
@@ -126,12 +143,12 @@ void	draw_player (t_cub *cub)
 	my_mlx_pixel_put(cub, cub->p.px + cub->p.pdx*5, cub->p.py + cub->p.pdy*5, GREEN);
 
 	/* point of view */
-	draw_line(cub, cub->p.px, cub->p.py, cub->p.px - sin(M_PI - cub->p.pa)*10,\
-		cub->p.py - cos(M_PI - cub->p.pa)*10, BLUE, 0);
 	draw_line(cub, cub->p.px, cub->p.py, cub->p.px + sin(M_PI - cub->p.pa)*10,\
+		cub->p.py - cos(M_PI - cub->p.pa)*10, BLUE, 0);
+	draw_line(cub, cub->p.px, cub->p.py, cub->p.px - sin(M_PI - cub->p.pa)*10,\
 		cub->p.py + cos(M_PI - cub->p.pa)*10, BLUE, 0);
 
-	draw_ray(cub);
+	
 }
 
 void	draw_map (t_cub *cub)
@@ -158,7 +175,8 @@ void	draw_map (t_cub *cub)
 void    draw(t_cub *cub)
 {
 	ft_bzero(cub->addr, SCREEN_HEIGHT * SCREEN_WIDTH * (cub->bpp / 8));
-	draw_map(cub);
-	draw_player(cub);
+	// draw_player(cub);
+	draw_ray(cub);
+	// draw_map(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 }
