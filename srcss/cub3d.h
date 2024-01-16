@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/15 10:16:05 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/16 11:16:29 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@
 # define SCR_W 640
 # define SCR_H 480
 
-# define SPEED 0.1
+# define MOVE_SPEED 0.1
+# define ROTATE_SPEED 0.1
 
 /* color */
 #define RGB_RED 0xFF0000
@@ -56,6 +57,8 @@ typedef struct s_cub
 	int		scr_h;
 	int		**map;
 	int		pixel;
+	int		map_x;
+	int		map_y;
 	
 	// mlx
 	void	*mlx;
@@ -79,6 +82,19 @@ typedef struct s_cub
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	perp_wall_dist;
+	int		draw_start;
+	int		draw_end;
 	// double	pdx;
 	// double	pdy;
 	// double	pa;

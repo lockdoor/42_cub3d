@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:14:02 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/15 13:10:32 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/16 10:51:31 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,84 +35,53 @@ int	on_destroy(void *param)
 	exit (0);
 }
 
-// static void	fdf_isometric(float *x, float *y, float angle)
-// {
-// 	float	temp;
+//both camera direction and camera plane must be rotated
+void	rotate(t_cub *cub, double a)
+{
+	double	old_dir_x;
+	double	old_plane_x;
 
-// 	temp = *x;
-// 	*x = (*x - *y) * cos(angle);
-// 	*y = ((temp + *y) * sin(angle));
-// }
+	old_dir_x = cub->dir_x;
+	cub->dir_x = cub->dir_x * cos(a) - cub->dir_y * sin(a);
+	cub->dir_y = old_dir_x * sin(a) + cub->dir_y * cos(a);
+	old_plane_x = cub->plane_x;
+	cub->plane_x = cub->plane_x * cos(a) - cub->plane_y * sin(a);
+	cub->plane_y = old_plane_x * sin(a) + cub->plane_y * cos(a);
+}
+
+void	move(t_cub *cub, double x, double y)
+{
+	double next_pos_x;
+	double next_pos_y;
+
+	next_pos_x = cub->pos_x + x * MOVE_SPEED;
+	next_pos_y = cub->pos_y + y * MOVE_SPEED;
+	if (cub->map[(int)next_pos_x][(int)cub->pos_y] == 0)
+		cub->pos_x += x * MOVE_SPEED;
+	if (cub->map[(int)cub->pos_x][(int)next_pos_y] == 0)
+		cub->pos_y += y * MOVE_SPEED;
+	printf("cub->pos_x: %f, cub->pos_y: %f\n", cub->pos_x, cub->pos_y);
+}
 
 int	key_hook(int key, void *param)
 {
 	t_cub		*cub;
-	// t_player 	*p;
 
-	(void) key;
 	cub = (t_cub *) param;
-	// p = &cub->p;
-	// printf ("key: %d\n", key);
 	if (key == KEY_ESCAPE)
 		return (on_destroy(cub));
-	/*if (key == KEY_W)
-	{
-		// debug
-		// print_pd (key, p);
-		
-		// p->px += p->pdx;
-		// p->py += p->pdy;
-		// cub->pos_x += cub->pdx * 1.0 / cub->pixel;
-		// cub->pos_y += cub->pdy * 1.0 / cub->pixel;
-		cub->pos_x += cub->dir_x * SPEED;
-		cub->pos_y += cub->dir_y * SPEED;
-	}
+	if (key == KEY_W)
+		move(cub, cub->dir_x, cub->dir_y);
 	if (key == KEY_S)
-	{
-		// debug
-		// print_pd (key, p);
-		
-		// p->px -= p->pdx;
-		// p->py -= p->pdy;
-		// cub->pos_x -= cub->pdx * 1.0 / cub->pixel;
-		// cub->pos_y -= cub->pdy * 1.0 / cub->pixel;
-		cub->pos_x -= cub->dir_x * SPEED;
-		cub->pos_y -= cub->dir_y * SPEED;
-	}
+		move(cub, -cub->dir_x, -cub->dir_y);
 	if (key == KEY_A)
-	{
-		// debug
-		// print_pd (key, p);
-		
-		cub->pos_x -= sin(M_PI - cub->pa) * 1.0 / cub->pixel;
-		cub->pos_y -= cos(M_PI - cub->pa) * 1.0 / cub->pixel;
-	}
+		move(cub, -(cub->plane_x / 0.66), -cub->plane_y / 0.66);
 	if (key == KEY_D)
-	{
-		// debug
-		// print_pd (key, p);
-		
-		cub->pos_x += sin(M_PI - cub->pa) * 1.0 / cub->pixel;
-		cub->pos_y += cos(M_PI - cub->pa) * 1.0 / cub->pixel;
-	}
+		move(cub, (cub->plane_x / 0.66), cub->plane_y / 0.66);
 	if (key == KEY_LEFT)
-	{
-		cub->pa += 1.0 / cub->pixel;
-		if (cub->pa > 2 * M_PI)
-			cub->pa -= 2 * M_PI;
-		cub->pdx = cos(cub->pa);
-		cub->pdy = -sin(cub->pa);
-		
-	}
+		rotate(cub, ROTATE_SPEED);
 	if (key == KEY_RIGHT)
-	{
-		cub->pa -= 1.0 / cub->pixel;
-		if (cub->pa < 0)
-			cub->pa += 2 * M_PI;
-		cub->pdx = cos(cub->pa);
-		cub->pdy = -sin(cub->pa);
-	}*/
-	// draw(cub);
+		rotate(cub, -ROTATE_SPEED);
 	run_cub (cub);
 	return (0);
 }

@@ -6,18 +6,11 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:19:00 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/15 17:10:37 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:05:16 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	get_pixel(t_cub *cub, float x, int y)
-{
-	x = x * cub->pixel;
-	// x = (int)x * cub->pixel;
-	return (x + y);
-}
 
 /*
 void	draw_player(t_cub *cub)
@@ -44,132 +37,176 @@ void	draw_player(t_cub *cub)
 }
 */
 
+void	verLine(t_cub *cub, int x, int color)
+{
+	while(cub->draw_start <= cub->draw_end)
+	{
+		my_mlx_pixel_put(cub, x, cub->draw_start, color);
+		cub->draw_start++ ;
+	}
+}
+
+void	pre_run_1(t_cub *cub, int x)
+{
+		cub->camera_x = 2 * x / (double)cub->scr_w - 1;
+		cub->ray_dir_x = cub->dir_x + cub->plane_x * cub->camera_x;
+		cub->ray_dir_y = cub->dir_y + cub->plane_y * cub->camera_x;
+		cub->map_x = (int) cub->pos_x;
+		cub->map_y = (int) cub->pos_y;
+		cub->delta_dist_x = (cub->ray_dir_x == 0) ? 1e30 : fabs(1 / cub->ray_dir_x);
+		cub->delta_dist_y = (cub->ray_dir_y == 0) ? 1e30 : fabs(1 / cub->ray_dir_y);
+}
+
+void	pre_run_2(t_cub *cub)
+{
+	if(cub->ray_dir_x < 0)
+	{
+		cub->step_x = -1;
+		cub->side_dist_x = (cub->pos_x - cub->map_x) * cub->delta_dist_x;
+	}
+	else
+	{
+		cub->step_x = 1;
+		cub->side_dist_x = (cub->map_x + 1.0 - cub->pos_x) * cub->delta_dist_x;
+	}
+	if(cub->ray_dir_y < 0)
+	{
+		cub->step_y = -1;
+		cub->side_dist_y = (cub->pos_y - cub->map_y) * cub->delta_dist_y;
+	}
+	else
+	{
+		cub->step_y = 1;
+		cub->side_dist_y = (cub->map_y + 1.0 - cub->pos_y) * cub->delta_dist_y;
+	}
+}
+
+void	cal_dda(t_cub *cub, int x)
+{
+	int	hit;
+	(void)x;
+	hit = 0;
+	while(hit == 0)
+	{
+		//jump to next map square, either in x-direction, or in y-direction
+		if(cub->side_dist_x < cub->side_dist_y)
+		{
+			cub->side_dist_x += cub->delta_dist_x;
+			cub->map_x += cub->step_x;
+			cub->side = 0;
+		}
+		else
+		{	
+			cub->side_dist_y += cub->delta_dist_y;
+			cub->map_y += cub->step_y;
+			cub->side = 1;
+		}
+
+		/* debug */
+		// if (x == 0)
+		
+			my_mlx_pixel_put (cub, \
+			cub->map_y * cub->pixel, \
+			cub->map_x * cub->pixel, \
+			RGB_WHITE);
+		
+		
+		//Check if ray has hit a wall
+		if(cub->map[cub->map_x][cub->map_y] > 0)
+			hit = 1;
+	}
+}
+
+void	cal_wall(t_cub *cub)
+{
+	int line_height;
+
+	if(cub->side == 0)
+		cub->perp_wall_dist = (cub->side_dist_x - cub->delta_dist_x);
+	else
+		cub->perp_wall_dist = (cub->side_dist_y - cub->delta_dist_y);
+
+	//Calculate height of line to draw on screen
+	line_height = (int)(cub->scr_h / cub->perp_wall_dist);
+
+	//calculate lowest and highest pixel to fill in current stripe
+	cub->draw_start = -line_height / 2 + cub->scr_h / 2;
+	if (cub->draw_start < 0)
+		cub->draw_start = 0;
+	cub->draw_end = line_height / 2 + cub->scr_h / 2;
+	if (cub->draw_end >= cub->scr_h)
+		cub->draw_end = cub->scr_h - 1;
+}
+
+int	wall_color(t_cub *cub)
+{
+	//choose wall color
+	int color;
+	
+	color = cub->map[cub->map_x][cub->map_y];
+	if (color == 1)
+		color = RGB_RED;
+	else if (color == 2)
+		color = RGB_GREEN;
+	else if (color == 3)
+		color = RGB_BLUE;
+	else if (color == 4)
+		color = RGB_WHITE;
+	else
+		color = RGB_YELLOW;
+	//give x and y sides different brightness
+	if(cub->side == 1) {color = color / 2;}
+	return (color);
+}
+
+void	map2d(t_cub *cub)
+{
+	draw_map_2_d(cub);
+
+	draw_line(cub, \
+		cub->pos_y * cub->pixel, \
+		cub->pos_x * cub->pixel, \
+		(cub->pos_y + cub->dir_y) * cub->pixel, \
+		(cub->pos_x + cub->dir_x) * cub->pixel, \
+		RGB_GREEN
+	);
+
+	draw_line(cub, \
+		cub->pos_y * cub->pixel, \
+		cub->pos_x * cub->pixel, \
+		(cub->pos_y - cub->plane_y) * cub->pixel, \
+		(cub->pos_x - cub->plane_x) * cub->pixel, \
+		RGB_WHITE
+	);
+	
+	draw_line(cub, \
+		cub->pos_y * cub->pixel, \
+		cub->pos_x * cub->pixel, \
+		(cub->pos_y + cub->plane_y) * cub->pixel, \
+		(cub->pos_x + cub->plane_x) * cub->pixel, \
+		RGB_WHITE
+	);
+}
+
 void	run_cub(t_cub *cub)
 {
 	ft_bzero(cub->addr, cub->scr_h * cub->scr_w * (cub->bpp / 8));
-	// print_map(cub->map, cub->map_h, cub->map_w);
-	draw_map_2_d(cub);
-	// draw_player(cub);
-	my_mlx_pixel_put(cub, cub->pos_x * cub->pixel, cub->pos_y * cub->pixel, RGB_GREEN);
-
-
-	int w = cub->scr_w;
-	// int w = 1;
-	for (int x = 0; x < w; x++)
+	
+	map2d(cub);
+	
+	for (int x = 0; x < cub->scr_w; x++)
 	{
-		double cameraX = 2 * x / (double)w - 1;
-		double rayDirX = cub->dir_x + cub->plane_x * cameraX;
-		double rayDirY = cub->dir_y + cub->plane_y * cameraX;
-
-		int mapX = (int) cub->pos_x;
-		int mapY = (int) cub->pos_y;
-
-		double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-		double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
-		
+		pre_run_1 (cub, x);
+		pre_run_2 (cub);
+		cal_dda (cub, x);	
+		cal_wall (cub);
+		//draw the pixels of the stripe as a vertical line
+		// verLine(cub, x, wall_color(cub));
 		/* debug */
-// 		printf ("\ncameraX: %f, rayDirX: %f, rayDirY: %f\n\
-// mapX: %d, mapY: %d, deltaDistX: %f, deltaDistY: %f\n\
-// pos_x: %f, pos_y: %f\n", \
-// 		cameraX, rayDirX, rayDirY, mapX, mapY, deltaDistX, deltaDistY, cub->pos_x, cub->pos_y);
+		if (x == 0)
+			printf ("px: %f, py: %f, wall_dist: %f, side: %d , dist_x = %f\n", \
+			cub->pos_x, cub->pos_y, cub->perp_wall_dist, cub->side, cub->side_dist_x);
 
-		
-		int stepX;
-		int stepY;
-
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
-		//calculate step and initial sideDist
-
-		double sideDistX;
-		double sideDistY;
-		if(rayDirX < 0)
-		{
-			stepX = -1;
-			sideDistX = (cub->pos_x - mapX) * deltaDistX;
-		}
-		else
-		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - cub->pos_x) * deltaDistX;
-		}
-		if(rayDirY < 0)
-		{
-			stepY = -1;
-			sideDistY = (cub->pos_y - mapY) * deltaDistY;
-		}
-		else
-		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - cub->pos_y) * deltaDistY;
-		}
-		if (x == 0 || x == w - 1 || x == w / 2)
-		{
-			printf ("\nrayX, %f, rayY: %f, delX: %f, delY: %f\n", \
-			rayDirX, rayDirY, deltaDistX, deltaDistY);
-		}
-		
-		//perform DDA
-		// double dx = cub->pos_x;
-		// double dy = cub->pos_y;
-		while(hit == 0)
-		// while(cub->map[mapX][mapY] > 0)
-		{
-			//jump to next map square, either in x-direction, or in y-direction
-			if(sideDistX < sideDistY)
-			{
-				// dx += rayDirX;
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
-			}
-			else
-			{	
-				// dy += rayDirY;
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
-			}
-			if (x == 0 || x == w - 1 || x == w / 2)
-			{
-				my_mlx_pixel_put(cub, mapX * cub->pixel, mapY * cub->pixel, RGB_WHITE);
-				printf ("x: %d, side: %d, mx: %d, my: %d, sideX: %f, sideY: %f\n", \
-					x, side, mapX, mapY, sideDistX, sideDistY);
-			}
-			//Check if ray has hit a wall
-			if(cub->map[mapX][mapY] > 0)
-				hit = 1;
-			// else{
-			// 	if (!side)
-			// 		dx += rayDirX;
-			// 	else
-			// 		dy += rayDirY;
-			// }
-		}
-
-		// hit = 0;
-		double dx = cub->pos_x;
-		double dy = cub->pos_y;
-		while (cub->map[(int) dy][(int) dx] == 0){
-			dy += rayDirY;
-			dx += rayDirX;
-			// if ()
-			// 	hit = 1;
-		}
-
-		if (x == 0 || x == w - 1 || x == w / 2){
-			// printf ("x/w: %d/%d, px: %.2f, py: %.2f, mx: %d, my: %d, sdx: %.2f, sdy: %.2f, side: %d\n", \
-			// x, w, cub->pos_x, cub->pos_y, mapX, mapY, sideDistX, sideDistY, side);
-			// draw_line(cub, cub->pos_x * cub->pixel, cub->pos_y * cub->pixel, \
-			// 	mapX * cub->pixel, mapY * cub->pixel, RGB_WHITE);
-			printf ("dx: %f, dy: %f, dx: %d, dy: %d, var: %d\n", \
-			dx, dy, (int)dx, (int)dy, cub->map[(int) dy][(int) dx]);
-			double px = cub->pos_x * cub->pixel;
-			double py = cub->pos_y * cub->pixel;
-			double pdx = dx * cub->pixel;
-			double pdy = dy * cub->pixel;
-			draw_line(cub, px, py, pdx, pdy, RGB_WHITE);
-		}
 	}
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 }

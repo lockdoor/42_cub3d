@@ -6,7 +6,7 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 12:51:12 by pnamnil           #+#    #+#              #
-#    Updated: 2024/01/14 07:11:15 by pnamnil          ###   ########.fr        #
+#    Updated: 2024/01/16 11:06:49 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CFLAGS = -Wall -Werror -Wextra $(INCLUDES) -g -fsanitize=address
 # SRCS = srcs/main.c \
 # 		srcs/draw.c
 		
-SRCS = srcss/main.c
+# SRCS = srcss/main.c
 SRCS = srcss/cub3d.c srcss/map.c srcss/debug.c srcss/init_cub.c \
 		srcss/init_hook.c srcss/run_cub.c srcss/draw_utils.c \
 		srcss/draw_map_2_d.c
