@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:20:15 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/11 08:29:19 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/13 20:07:14 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ void	draw_ray(t_cub *cub)
 			}
 
 		}
-		// draw_line(cub, cub->p.px, cub->p.py, dx, dy, RED, 0);
-		draw_wall(cub, dx, dy, RED, col);
+		draw_line(cub, cub->p.px, cub->p.py, dx, dy, RED, 0);
+		// draw_wall(cub, dx, dy, RED, col);
 		// printf ("i: %f\n", i);
 		i -= ra ;
 		hit = 0;
@@ -175,8 +175,8 @@ void	draw_map (t_cub *cub)
 void    draw(t_cub *cub)
 {
 	ft_bzero(cub->addr, SCREEN_HEIGHT * SCREEN_WIDTH * (cub->bpp / 8));
-	// draw_player(cub);
+	draw_player(cub);
 	draw_ray(cub);
-	// draw_map(cub);
+	draw_map(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 }
