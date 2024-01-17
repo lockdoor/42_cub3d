@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 15:58:39 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 17:04:16 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef struct s_cub
 	int		draw_start;
 	int		draw_end;
 	int		line_height;
+	int		floor;
+	int		ceiling;
 }	t_cub;
 
 // debug.c

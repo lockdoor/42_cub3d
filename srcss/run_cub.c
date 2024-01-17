@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:19:00 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 15:46:43 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 17:13:40 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,30 @@ void	clean_screen(t_img *img)
 	ft_bzero(img->addr, img->scr_h * img->scr_w * (img->bpp / 8));
 }
 
+void	draw_floor_ceiling(t_cub *cub, t_img *img)
+{
+	int	y;
+	int x;
+
+	x = 0;
+	while (x < img->scr_w)
+	{
+		y = 0;
+		while (y < img->scr_h / 2)
+		{
+			my_mlx_pixel_put(img, x, y, cub->ceiling);
+			y++ ;
+		}
+		while (y < img->scr_h)
+		{
+			my_mlx_pixel_put(img, x, y, cub->floor);
+			y++ ;
+		}
+		x++ ;
+	}
+	
+}
+
 void	run_cub(t_cub *cub)
 {
 	int x;
@@ -112,6 +136,7 @@ void	run_cub(t_cub *cub)
 		cal_wall (cub, &cub->mini);
 		draw_ray_2_d (cub, &cub->mini);
 	}
+	draw_floor_ceiling(cub, &cub->main);
 	x = -1;
 	while (++x < cub->main.scr_w)
 	{

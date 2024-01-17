@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:09:27 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 15:52:43 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 17:06:24 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	init_cub(t_cub *cub)
 	cub->dir_x = -1;
 	cub->dir_y = 0;
 	cub->plane_x = 0;
-	cub->plane_y = 0.66;	
+	cub->plane_y = 0.66;
+	cub->floor = 0x404040;
+	cub->ceiling = 0x99FFFF;
 	return (0);
 }
