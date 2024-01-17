@@ -6,7 +6,7 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 12:51:12 by pnamnil           #+#    #+#              #
-#    Updated: 2024/01/17 10:08:19 by pnamnil          ###   ########.fr        #
+#    Updated: 2024/01/17 15:55:53 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ FRAMEWORK = -framework OpenGL -framework AppKit
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra $(INCLUDES) -g -fsanitize=address
+# CFLAGS = -Wall -Werror -Wextra $(INCLUDES)
 # CFLAGS = $(INCLUDES) -g -fsanitize=address
 
 # SRCS = srcs/main.c \
@@ -32,11 +33,9 @@ HEADER = srcss/cub3d.h
 
 SRCS = srcss/cub3d.c srcss/map.c srcss/debug.c srcss/init_cub.c \
 		srcss/init_hook.c srcss/run_cub.c srcss/draw_utils.c \
-		srcss/draw_map_2_d.c
+		srcss/draw_map_2_d.c srcss/run_no_texture.c srcss/run_texture.c
 		
 OBJS = $(SRCS:.c=.o) 
-
-
 
 all: $(NAME) $(HEADER)
 
@@ -54,6 +53,9 @@ fclean: clean
 	rm -rf $(LIB_DIR)/libft.a
 	rm -rf $(MLX_DIR)/libmlx.a
 	rm -rf $(NAME)
+
+l:
+	leaks --atExit -- ./$(NAME)
 
 re: fclean all
 

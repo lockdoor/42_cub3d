@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:14:02 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 14:00:13 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 15:53:46 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	free_map(t_cub *cub)
 
 	y = 0;
 	while (y < cub->map_h)
-	{
 		free (cub->map[y++]);
-	}
 	free (cub->map);
 }
 
@@ -62,7 +60,6 @@ void	move(t_cub *cub, double x, double y)
 		cub->pos_x += x * MOVE_SPEED;
 	if (cub->map[(int)cub->pos_x][(int)next_pos_y] == 0)
 		cub->pos_y += y * MOVE_SPEED;
-	// printf("cub->pos_x: %f, cub->pos_y: %f\n", cub->pos_x, cub->pos_y);
 }
 
 int	key_hook(int key, void *param)

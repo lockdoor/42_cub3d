@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 07:16:56 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 10:26:22 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 15:33:07 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ static void	draw_map_2_d(t_cub *cub, t_img *img)
 			int py = y * img->pixel_y;
 			color = pick_color(cub->map[(int)y][(int)x]);
 			if (color)
-			{
 				draw_square(img, px, py, color);	
-			}
 			draw_line(img, px, py, px + img->pixel_x, py, RGB_BLUE);
 			draw_line(img, px, py, px, py + img->pixel_y, RGB_BLUE);
 			x++ ;

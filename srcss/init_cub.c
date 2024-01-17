@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:09:27 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 14:44:45 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 15:52:43 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,8 @@ int	init_img(t_cub *cub)
 	return (0);
 }
 
-// void	copy_wall(int wall[TEXTURE_H][TEXTURE_W], char *addr)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	x = 0;
-// 	y = 0;
-// 	while (y < TEXTURE_H)
-// 	{
-// 		while (x < TEXTURE_W)
-// 		{
-// 			ft_memcpy(&wall[y][x], addr, 4);
-// 			addr += 4;
-// 			x++ ;
-// 		}
-// 		y++ ;
-// 	}
-// }
-
 int	init_wall(t_cub *cub, t_img *img)
 {
-	// t_img	img;
 	int		x;
 	int		y;
 
@@ -75,12 +55,6 @@ int	init_wall(t_cub *cub, t_img *img)
 	}
 	img->scr_h = y;
 	img->scr_w = x;
-	
-	// printf ("width: %d, heigth: %d\n", x, y);
-	// printf ("bpp: %d, ll: %d, endien: %d", img.bpp, img.ll, img.endien);
-	// copy_wall(cub->wall, img.addr);
-	// mlx_put_image_to_window(cub->mlx, cub->win, img.img, 0, 0);
-	// mlx_destroy_image(cub->mlx, img.img);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 13:57:02 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 15:58:39 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <math.h>
 # include <stdlib.h>
 
+# define TITLE "CUB3D"
+
 # define ON_KEYUP 3
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17
@@ -30,7 +32,7 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 
-# define TITLE "CUB3D"
+// can setting window size here.
 # define MAP_W 24
 # define MAP_H 24
 # define SCR_W 1200
@@ -45,8 +47,8 @@
 
 /* color */
 #define RGB_RED 0xFF0000
-#define RGB_GREEN 0xFF00
-#define RGB_BLUE 0xFF
+#define RGB_GREEN 0x00FF00
+#define RGB_BLUE 0x0000FF
 #define RGB_WHITE 0xFFFFFF
 #define RGB_YELLOW 0xFFFF00
 
@@ -78,13 +80,10 @@ typedef struct s_cub
 	// mlx
 	void	*mlx;
 	void	*win;
-	void	*img;
 	
 	t_img	mini;
 	t_img	main;
 	t_img	wall;
-
-	// int		wall[TEXTURE_H][TEXTURE_W];
 
 	double	pos_x;
 	double	pos_y;
@@ -109,7 +108,6 @@ typedef struct s_cub
 }	t_cub;
 
 // debug.c
-// void	print_map(int map[MAP_H][MAP_W]);
 void	print_map(int **map, int y, int x);
 
 // init_cub.c
@@ -121,6 +119,13 @@ int	init_hook(t_cub *cub);
 // run_cub.c
 void	run_cub(t_cub *cub);
 
+// run_no_texture.c
+void	verLine(t_cub *cub, t_img *img, int x, int color);
+int	wall_color(t_cub *cub);
+
+// run_texture.c
+void	write_texture(t_cub *cub, t_img *img, int x);
+
 // map.c
 int **make_map(void);
 
@@ -129,9 +134,7 @@ void	map_2_d(t_cub *cub, t_img *img);
 void	draw_ray_2_d(t_cub *cub, t_img *img);
 
 // draw_utils.c
-// void	my_mlx_pixel_put(t_cub *cub, int x, int y, int color);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-// void	draw_square(t_cub *cub, int px, int py, int size_y, int size_x, int color);
 void	draw_square(t_img *img, int px, int py, int color);
 void	draw_line(t_img *img, double px_1, double py_1, double px_2, \
 		double py_2, int color);
