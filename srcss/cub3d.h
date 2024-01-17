@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 09:50:19 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 13:57:02 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define SCR_H 800
 # define MINI_H 240
 # define MINI_W 240
+# define TEXTURE_H 64
+# define TEXTURE_W 64
 
 # define MOVE_SPEED 0.1
 # define ROTATE_SPEED 0.1
@@ -46,9 +48,7 @@
 #define RGB_GREEN 0xFF00
 #define RGB_BLUE 0xFF
 #define RGB_WHITE 0xFFFFFF
-#define RGB_YELLOW 0xFF0
-// map.c
-// extern int	worldMap[MAP_H][MAP_W];
+#define RGB_YELLOW 0xFFFF00
 
 typedef struct s_img
 {
@@ -71,11 +71,7 @@ typedef struct s_cub
 	// map
 	int		map_w;
 	int		map_h;
-	// int		scr_w;
-	// int		scr_h;
 	int		**map;
-	// int		pixel_x;
-	// int		pixel_y;
 	int		map_x;
 	int		map_y;
 	
@@ -86,19 +82,10 @@ typedef struct s_cub
 	
 	t_img	mini;
 	t_img	main;
-	// void	*img_mini;
+	t_img	wall;
 
-	// addr group
-	// char	*addr;
-	// int		bpp;
-	// int		ll;
-	// int		endien;
+	// int		wall[TEXTURE_H][TEXTURE_W];
 
-	// // map group
-	// int		*map;
-	// int		map_x;
-	// int		map_y;
-	// int		map_s;
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
@@ -118,9 +105,7 @@ typedef struct s_cub
 	double	perp_wall_dist;
 	int		draw_start;
 	int		draw_end;
-	// double	pdx;
-	// double	pdy;
-	// double	pa;
+	int		line_height;
 }	t_cub;
 
 // debug.c
@@ -140,8 +125,8 @@ void	run_cub(t_cub *cub);
 int **make_map(void);
 
 // draw_map_2_d.c
-// void	draw_map_2_d(t_cub *cub);
-void	draw_map_2_d(t_cub *cub, t_img *img);
+void	map_2_d(t_cub *cub, t_img *img);
+void	draw_ray_2_d(t_cub *cub, t_img *img);
 
 // draw_utils.c
 // void	my_mlx_pixel_put(t_cub *cub, int x, int y, int color);

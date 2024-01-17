@@ -6,13 +6,13 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 07:16:56 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 09:25:04 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 10:26:22 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	pick_color(int color)
+static int	pick_color(int color)
 {
 	if (color == 1)
 		return (RGB_RED);
@@ -25,7 +25,7 @@ int	pick_color(int color)
 	return (0);
 }
 
-void	draw_map_2_d(t_cub *cub, t_img *img)
+static void	draw_map_2_d(t_cub *cub, t_img *img)
 {
 	double	y;
 	double	x;
@@ -44,11 +44,64 @@ void	draw_map_2_d(t_cub *cub, t_img *img)
 			{
 				draw_square(img, px, py, color);	
 			}
-			draw_line(img, px, py, px + img->pixel_x, py, RGB_YELLOW);
-			draw_line(img, px, py, px, py + img->pixel_y, RGB_YELLOW);	
+			draw_line(img, px, py, px + img->pixel_x, py, RGB_BLUE);
+			draw_line(img, px, py, px, py + img->pixel_y, RGB_BLUE);
 			x++ ;
 		}
 		y++ ;
 	}
-	
+}
+
+// here exactly the wall was hit
+void	draw_ray_2_d(t_cub *cub, t_img *img)
+{
+	double wall_x; 
+	if(cub->side == 0)
+	{
+		wall_x = cub->pos_y + cub->perp_wall_dist * cub->ray_dir_y;
+		wall_x -= floor(wall_x);
+		draw_line(img, \
+		cub->pos_y * img->pixel_x, \
+		cub->pos_x * img->pixel_y, \
+		(cub->map_y + wall_x) * img->pixel_x,
+		(cub->ray_dir_x < 0 ? cub->map_x + 1 : cub->map_x) * img->pixel_y, \
+		RGB_WHITE);
+	}
+	else 
+	{
+		wall_x = cub->pos_x + cub->perp_wall_dist * cub->ray_dir_x;
+		wall_x -= floor(wall_x);
+		draw_line(img, \
+		cub->pos_y * img->pixel_x, \
+		cub->pos_x * img->pixel_y, \
+		(cub->ray_dir_y < 0 ? cub->map_y + 1 : cub->map_y) * img->pixel_x, \
+		(cub->map_x + wall_x) * img->pixel_y,
+		RGB_WHITE);
+	}
+}
+
+void	map_2_d(t_cub *cub, t_img *img)
+{
+	draw_map_2_d(cub, img);
+	draw_line(img, \
+		cub->pos_y * img->pixel_x, \
+		cub->pos_x * img->pixel_y, \
+		(cub->pos_y + cub->dir_y) * img->pixel_x, \
+		(cub->pos_x + cub->dir_x) * img->pixel_y, \
+		RGB_GREEN
+	);
+	draw_line(img, \
+		cub->pos_y * img->pixel_x, \
+		cub->pos_x * img->pixel_y, \
+		(cub->pos_y - cub->plane_y) * img->pixel_x, \
+		(cub->pos_x - cub->plane_x) * img->pixel_y, \
+		RGB_WHITE
+	);
+	draw_line(img, \
+		cub->pos_y * img->pixel_x, \
+		cub->pos_x * img->pixel_y, \
+		(cub->pos_y + cub->plane_y) * img->pixel_x, \
+		(cub->pos_x + cub->plane_x) * img->pixel_y, \
+		RGB_WHITE
+	);
 }

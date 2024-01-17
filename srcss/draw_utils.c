@@ -6,21 +6,12 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 07:15:40 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 09:15:28 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 14:01:26 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// void	my_mlx_pixel_put(t_cub *cub, int x, int y, int color)
-// {
-// 	char	*dst;
-
-// 	if (x >= cub->scr_w || y >= cub->scr_h || x < 0 || y < 0)
-// 		return ;
-// 	dst = cub->addr + (y * cub->ll + x * (cub->bpp / 8));
-// 	*(unsigned int*)dst = color;
-// }
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
