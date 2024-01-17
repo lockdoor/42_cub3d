@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/16 11:16:29 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 07:59:36 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_cub
 	void	*mlx;
 	void	*win;
 	void	*img;
+	// void	*img_mini;
 
 	// addr group
 	char	*addr;

@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:09:27 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/15 14:20:53 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 07:59:25 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 int	init_cub(t_cub *cub)
 {
 	cub->map = make_map();
-	cub->pixel = 24;
 	cub->map_w = MAP_W;
 	cub->map_h = MAP_H;
 	cub->scr_w = MAP_W * 24;
 	cub->scr_h = MAP_H * 24;
+	cub->pixel = 24;
+	// cub->scr_w = SCR_W;
+	// cub->scr_h = SCR_H;
+	// cub->pixel = 24;
 	
 	/* mlx */
 	cub->mlx = mlx_init();

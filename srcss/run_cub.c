@@ -6,36 +6,11 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:19:00 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/16 15:05:16 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 06:57:45 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*
-void	draw_player(t_cub *cub)
-{
-	double	x_1;
-	double	y_1;
-	double	x_2;
-	double	y_2;
-
-	x_1 = cub->pos_x * cub->pixel;
-	y_1 = cub->pos_y * cub->pixel;
-	// x_2 = x_1 + cub->pdx * 50;
-	// y_2 = y_1 + cub->pdy * 50;
-	x_2 = -sin(cub->plane_x) * 50;
-	y_2 = cos(cub->plane_x) * 50;
-	draw_line (cub, x_1, y_1, x_2, y_2, RGB_WHITE);
-	// printf ("x_1: %f, y_1: %f, x_2: %f, y_2: %f\n", x_1, y_1, x_2, y_2);
-
-
-	// draw_line(cub, x_1, y_1, x_1 + sin(M_PI - cub->pa)*30,\
-	// 	y_1 - cos(M_PI - cub->pa)*50, RGB_BLUE);
-	// draw_line(cub, x_1, y_1, x_1 - sin(M_PI - cub->pa)*30,\
-	// 	y_1 + cos(M_PI - cub->pa)*50, RGB_BLUE);
-}
-*/
 
 void	verLine(t_cub *cub, int x, int color)
 {
@@ -105,10 +80,10 @@ void	cal_dda(t_cub *cub, int x)
 		/* debug */
 		// if (x == 0)
 		
-			my_mlx_pixel_put (cub, \
-			cub->map_y * cub->pixel, \
-			cub->map_x * cub->pixel, \
-			RGB_WHITE);
+		// my_mlx_pixel_put (cub, \
+		// cub->map_y * cub->pixel, \
+		// cub->map_x * cub->pixel, \
+		// RGB_WHITE);
 		
 		
 		//Check if ray has hit a wall
@@ -188,6 +163,36 @@ void	map2d(t_cub *cub)
 	);
 }
 
+void	draw_ray(t_cub *cub)
+{
+
+	double wall_x; // here exactly the wall was hit
+	if(cub->side == 0)
+	{
+		wall_x = cub->pos_y + cub->perp_wall_dist * cub->ray_dir_y;
+		wall_x -= floor(wall_x);
+		draw_line(cub, \
+		cub->pos_y * cub->pixel, \
+		cub->pos_x * cub->pixel, \
+		(cub->map_y + wall_x) * cub->pixel,
+		(cub->ray_dir_x < 0 ? cub->map_x + 1 : cub->map_x) * cub->pixel, \
+		RGB_WHITE);
+	}
+	else 
+	{
+		wall_x = cub->pos_x + cub->perp_wall_dist * cub->ray_dir_x;
+		wall_x -= floor(wall_x);
+		draw_line(cub, \
+		cub->pos_y * cub->pixel, \
+		cub->pos_x * cub->pixel, \
+		(cub->ray_dir_y < 0 ? cub->map_y + 1 : cub->map_y) * cub->pixel, \
+		(cub->map_x + wall_x) * cub->pixel,
+		RGB_WHITE);
+	}
+	// printf ("wall_x: %f, dir_x: %f, dir_y: %f\n", \
+	// wall_x, cub->dir_x, cub->dir_y);
+}
+
 void	run_cub(t_cub *cub)
 {
 	ft_bzero(cub->addr, cub->scr_h * cub->scr_w * (cub->bpp / 8));
@@ -203,10 +208,13 @@ void	run_cub(t_cub *cub)
 		//draw the pixels of the stripe as a vertical line
 		// verLine(cub, x, wall_color(cub));
 		/* debug */
-		if (x == 0)
-			printf ("px: %f, py: %f, wall_dist: %f, side: %d , dist_x = %f\n", \
-			cub->pos_x, cub->pos_y, cub->perp_wall_dist, cub->side, cub->side_dist_x);
-
+		// if (x == cub->scr_w / 2 || x == 0)
+		// {
+			// printf ("px: %f, py: %f, wall_dist: %f, side: %d , dist_x = %f\n", \
+			// cub->pos_x, cub->pos_y, cub->perp_wall_dist, cub->side, cub->side_dist_x);
+			draw_ray (cub);
+		// }
+		
 	}
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 }
