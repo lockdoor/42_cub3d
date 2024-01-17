@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 07:16:56 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/15 13:40:16 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 09:25:04 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,36 +25,27 @@ int	pick_color(int color)
 	return (0);
 }
 
-void	draw_map_2_d(t_cub *cub)
+void	draw_map_2_d(t_cub *cub, t_img *img)
 {
 	double	y;
 	double	x;
-	// double pixel_x;
-	// double pixel_y;
 	int color;
 
 	y = 0;
-	// pixel_x = (double)cub->scr_w / cub->map_w;
-	// pixel_y = (double)cub->scr_h / cub->map_h;
-	
-	/* debug */
-	// printf ("pixel_x: %f, pixel_y: %f\n", pixel_x, pixel_y);
-	
 	while (y < (double)cub->map_h)
 	{
 		x = 0;
 		while (x < (double)cub->map_w)
 		{
-			int px = x * cub->pixel;
-			int py = y * cub->pixel;
+			int px = x * img->pixel_x;
+			int py = y * img->pixel_y;
 			color = pick_color(cub->map[(int)y][(int)x]);
 			if (color)
 			{
-				draw_square(cub, x * cub->pixel, y * cub->pixel, cub->pixel, cub->pixel, color);	
-				// draw_square(cub, x * pixel_x, y * pixel_y, pixel_y, pixel_x, color);
+				draw_square(img, px, py, color);	
 			}
-			draw_line(cub, px, py, px + cub->pixel, py, RGB_YELLOW);
-			draw_line(cub, px, py, px, py + cub->pixel, RGB_YELLOW);	
+			draw_line(img, px, py, px + img->pixel_x, py, RGB_YELLOW);
+			draw_line(img, px, py, px, py + img->pixel_y, RGB_YELLOW);	
 			x++ ;
 		}
 		y++ ;

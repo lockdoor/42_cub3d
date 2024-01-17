@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 07:59:36 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 09:50:19 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@
 # define TITLE "CUB3D"
 # define MAP_W 24
 # define MAP_H 24
-# define SCR_W 640
-# define SCR_H 480
+# define SCR_W 1200
+# define SCR_H 800
+# define MINI_H 240
+# define MINI_W 240
 
 # define MOVE_SPEED 0.1
 # define ROTATE_SPEED 0.1
@@ -48,15 +50,32 @@
 // map.c
 // extern int	worldMap[MAP_H][MAP_W];
 
+typedef struct s_img
+{
+	void	*img;
+
+	int		scr_w;
+	int		scr_h;
+	int		pixel_x;
+	int		pixel_y;
+	
+	// addr group
+	char	*addr;
+	int		bpp;
+	int		ll;
+	int		endien;
+}	t_img;
+
 typedef struct s_cub
 {
 	// map
 	int		map_w;
 	int		map_h;
-	int		scr_w;
-	int		scr_h;
+	// int		scr_w;
+	// int		scr_h;
 	int		**map;
-	int		pixel;
+	// int		pixel_x;
+	// int		pixel_y;
 	int		map_x;
 	int		map_y;
 	
@@ -64,13 +83,16 @@ typedef struct s_cub
 	void	*mlx;
 	void	*win;
 	void	*img;
+	
+	t_img	mini;
+	t_img	main;
 	// void	*img_mini;
 
 	// addr group
-	char	*addr;
-	int		bpp;
-	int		ll;
-	int		endien;
+	// char	*addr;
+	// int		bpp;
+	// int		ll;
+	// int		endien;
 
 	// // map group
 	// int		*map;
@@ -118,12 +140,15 @@ void	run_cub(t_cub *cub);
 int **make_map(void);
 
 // draw_map_2_d.c
-void	draw_map_2_d(t_cub *cub);
+// void	draw_map_2_d(t_cub *cub);
+void	draw_map_2_d(t_cub *cub, t_img *img);
 
 // draw_utils.c
-void	my_mlx_pixel_put(t_cub *cub, int x, int y, int color);
-void	draw_square(t_cub *cub, int px, int py, int size_y, int size_x, int color);
-void	draw_line(t_cub *cub, double px_1, double py_1, double px_2, \
+// void	my_mlx_pixel_put(t_cub *cub, int x, int y, int color);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+// void	draw_square(t_cub *cub, int px, int py, int size_y, int size_x, int color);
+void	draw_square(t_img *img, int px, int py, int color);
+void	draw_line(t_img *img, double px_1, double py_1, double px_2, \
 		double py_2, int color);
 
 #endif
