@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 18:51:33 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/18 07:42:41 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 // can setting window size here.
 # define MAP_W 24
-# define MAP_H 24
+# define MAP_H 25
 # define SCR_W 1200
 # define SCR_H 800
 # define MINI_H 240
@@ -58,8 +58,8 @@ typedef struct s_img
 
 	int		scr_w;
 	int		scr_h;
-	int		pixel_x;
-	int		pixel_y;
+	double		pixel_x;
+	double		pixel_y;
 	
 	// addr group
 	char	*addr;

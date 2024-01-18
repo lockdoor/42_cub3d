@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:23:50 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 19:08:54 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/18 07:28:34 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	write_texture(t_cub *cub, t_img *img, int x)
 	while (cub->draw_start <= cub->draw_end)
 	{
 		// debug
-		if (x == img->scr_w / 2)
-			printf ("ray_dir_x: %f, ray_dir_y: %f\n", \
-				cub->ray_dir_x, cub->ray_dir_y);
+		// if (x == img->scr_w / 2)
+		// 	printf ("ray_dir_x: %f, ray_dir_y: %f\n", \
+		// 		cub->ray_dir_x, cub->ray_dir_y);
 		
 		tex_y = (int)tex_pos & (TEXTURE_H - 1);
 		tex_pos += step;

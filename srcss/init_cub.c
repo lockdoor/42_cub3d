@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:09:27 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 18:51:50 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/18 07:46:36 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	init_img(t_cub *cub)
 	// mini map
 	cub->mini.scr_w = MINI_W;
 	cub->mini.scr_h = MINI_H;
-	cub->mini.pixel_x = MINI_W / MAP_W;
-	cub->mini.pixel_y = MINI_H / MAP_H;
+	cub->mini.pixel_x = (double)MINI_W / MAP_W;
+	cub->mini.pixel_y = (double)MINI_H / MAP_H;
 	cub->mini.img = mlx_new_image(cub->mlx, cub->mini.scr_w, cub->mini.scr_h);
 	cub->mini.addr = mlx_get_data_addr(cub->mini.img, &cub->mini.bpp, \
 		&cub->mini.ll, &cub->mini.endien);
@@ -26,8 +26,8 @@ int	init_img(t_cub *cub)
 	// main map
 	cub->main.scr_w = SCR_W;
 	cub->main.scr_h = SCR_H;
-	cub->main.pixel_x = SCR_W / MAP_W;
-	cub->main.pixel_y = SCR_H / MAP_H;
+	cub->main.pixel_x = (double)SCR_W / MAP_W;
+	cub->main.pixel_y = (double)SCR_H / MAP_H;
 	cub->main.img = mlx_new_image(cub->mlx, cub->main.scr_w, cub->main.scr_h);
 	cub->main.addr = mlx_get_data_addr(cub->main.img, &cub->main.bpp, \
 		&cub->main.ll, &cub->main.endien);

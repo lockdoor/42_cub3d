@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 07:16:56 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 15:33:07 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/18 07:46:59 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,23 @@ static int	pick_color(int color)
 
 static void	draw_map_2_d(t_cub *cub, t_img *img)
 {
-	double	y;
-	double	x;
+	int	y;
+	int	x;
 	int color;
+	double	px;
+	double	py;
 
+	// debug
+	// printf ("draw_map_2_d: pixel_x: %f, pixel_y: %f\n", \
+	// 	img->pixel_x, img->pixel_y);
 	y = 0;
-	while (y < (double)cub->map_h)
+	while (y < cub->map_h)
 	{
 		x = 0;
-		while (x < (double)cub->map_w)
+		while (x < cub->map_w)
 		{
-			int px = x * img->pixel_x;
-			int py = y * img->pixel_y;
+			px = x * img->pixel_x;
+			py = y * img->pixel_y;
 			color = pick_color(cub->map[(int)y][(int)x]);
 			if (color)
 				draw_square(img, px, py, color);	
