@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:14:02 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 18:52:04 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/18 08:25:01 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,27 @@ int	key_hook(int key, void *param)
 	return (0);
 }
 
+int	mouse_hook(int key, int x, int y, void *param)
+{
+	t_cub	*cub;
+
+	(void) x;
+	(void) y;
+	cub = (t_cub *) param;
+	if (key != 7 && key != 6)
+		return (0);
+	if (key == 7)
+		rotate(cub, ROTATE_SPEED);
+	if (key == 6)
+		rotate(cub, -ROTATE_SPEED);
+	run_cub (cub);
+	return (0);
+}
+
 int	init_hook(t_cub *cub)
 {
 	mlx_hook(cub->win, ON_KEYDOWN, 0, &key_hook, cub);
 	mlx_hook(cub->win, ON_DESTROY, 0, &on_destroy, cub);
+	mlx_mouse_hook(cub->win, &mouse_hook, cub);
 	return (0);
 }
