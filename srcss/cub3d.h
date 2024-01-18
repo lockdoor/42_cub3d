@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/18 07:42:41 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:25:17 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 # define CUB3D_H
 
 # include "libft.h"
+# include "get_next_line.h"
 # include <stdio.h>
 # include "mlx.h"
 # include <math.h>
 # include <stdlib.h>
+# include <fcntl.h>
 
 # define TITLE "CUB3D"
 
@@ -117,6 +119,9 @@ void	print_map(int **map, int y, int x);
 
 // init_cub.c
 int	init_cub(t_cub *cub);
+
+// read_map.c
+int	read_map(t_cub *cub, char *file);
 
 // init_hook.c
 int	init_hook(t_cub *cub);
