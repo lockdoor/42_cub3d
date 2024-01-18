@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:09:27 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 17:06:24 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 18:51:50 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int	init_img(t_cub *cub)
 	return (0);
 }
 
-int	init_wall(t_cub *cub, t_img *img)
+int	init_wall(t_cub *cub, t_img *img, char *file)
 {
 	int		x;
 	int		y;
 
-	x = 64;
-	y = 64;
-	img->img = mlx_xpm_file_to_image(cub->mlx, "img/wall.xpm", &x, &y);
+	x = TEXTURE_W;
+	y = TEXTURE_H;
+	img->img = mlx_xpm_file_to_image(cub->mlx, file, &x, &y);
 	if (!img->img)
 	{
 		printf ("init_wall: can not get img\n");
@@ -68,7 +68,10 @@ int	init_cub(t_cub *cub)
 	cub->win = mlx_new_window(cub->mlx, SCR_W, SCR_H, TITLE);
 	init_img (cub);
 
-	init_wall (cub, &cub->wall);
+	init_wall (cub, &cub->wall_n, "img/wall_1.xpm");
+	init_wall (cub, &cub->wall_e, "img/wall_2.xpm");
+	init_wall (cub, &cub->wall_w, "img/wall_3.xpm");
+	init_wall (cub, &cub->wall_s, "img/wall_4.xpm");
 	
 	cub->pos_x = 22;
 	cub->pos_y = 12;

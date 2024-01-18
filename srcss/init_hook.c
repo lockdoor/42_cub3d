@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:14:02 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 15:53:46 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 18:52:04 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	on_destroy(void *param)
 	t_cub	*cub;
 
 	cub = (t_cub *) param;
-	mlx_destroy_image(cub->mlx, cub->wall.img);
+	mlx_destroy_image(cub->mlx, cub->wall_n.img);
+	mlx_destroy_image(cub->mlx, cub->wall_e.img);
+	mlx_destroy_image(cub->mlx, cub->wall_w.img);
+	mlx_destroy_image(cub->mlx, cub->wall_s.img);
 	mlx_destroy_image(cub->mlx, cub->mini.img);
 	mlx_destroy_image(cub->mlx, cub->main.img);
 	mlx_destroy_window(cub->mlx, cub->win);

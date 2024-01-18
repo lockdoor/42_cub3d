@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 17:04:16 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 18:51:33 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ typedef struct s_cub
 	
 	t_img	mini;
 	t_img	main;
-	t_img	wall;
+	t_img	wall_n;
+	t_img	wall_e;
+	t_img	wall_w;
+	t_img	wall_s;
 
 	double	pos_x;
 	double	pos_y;

@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:23:50 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 15:24:46 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/17 19:08:54 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,24 @@ static double	wall_hit(t_cub *cub)
 	return(wall_x);
 }
 
+t_img	*collect_wall(t_cub *cub)
+{
+	if (cub->side)
+	{
+		if (cub->pos_y > (double) cub->map_y)
+			return (&cub->wall_w);
+		else
+			return (&cub->wall_e);
+	}
+	else
+	{
+		if (cub->pos_x > (double) cub->map_x)
+			return (&cub->wall_s);
+		else
+			return (&cub->wall_n);
+	}
+}
+
 void	write_texture(t_cub *cub, t_img *img, int x)
 {
 	
@@ -56,9 +74,14 @@ void	write_texture(t_cub *cub, t_img *img, int x)
 	tex_pos = (cub->draw_start - img->scr_h / 2 + cub->line_height / 2) * step;
 	while (cub->draw_start <= cub->draw_end)
 	{
+		// debug
+		if (x == img->scr_w / 2)
+			printf ("ray_dir_x: %f, ray_dir_y: %f\n", \
+				cub->ray_dir_x, cub->ray_dir_y);
+		
 		tex_y = (int)tex_pos & (TEXTURE_H - 1);
 		tex_pos += step;
-		color = my_mlx_pixel_get(&cub->wall, tex_x, tex_y);
+		color = my_mlx_pixel_get(collect_wall(cub), tex_x, tex_y);
 		if (cub->side == 1)
 			color = (color >> 1) & 8355711;		
 		my_mlx_pixel_put(img, x, cub->draw_start, color);
