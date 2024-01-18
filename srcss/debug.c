@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 05:52:12 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 15:54:52 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:12:17 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,20 @@ void	print_map(int **map, int y, int x)
 		}
 		printf ("\n");
 	}
+}
+
+void	print_list_map(void *content)
+{
+	char	*s;
+
+	s = (char *)content;
+	printf("%s", s);
+}
+
+void	print_file_wall(t_file *file)
+{
+	printf ("print_file_wall file->wall_n: %s\n", file->wall_n);
+	printf ("print_file_wall file->wall_s: %s\n", file->wall_s);
+	printf ("print_file_wall file->wall_w: %s\n", file->wall_w);
+	printf ("print_file_wall file->wall_e: %s\n", file->wall_e);
 }

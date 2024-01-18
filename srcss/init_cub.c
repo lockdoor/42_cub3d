@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:09:27 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/18 09:25:10 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:23:51 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	init_img(t_cub *cub)
 	return (0);
 }
 
-int	init_wall(t_cub *cub, t_img *img, char *file)
+int	wall_to_img(t_cub *cub, t_img *img, char *file)
 {
 	int		x;
 	int		y;
@@ -44,15 +44,10 @@ int	init_wall(t_cub *cub, t_img *img, char *file)
 	img->img = mlx_xpm_file_to_image(cub->mlx, file, &x, &y);
 	if (!img->img)
 	{
-		printf ("init_wall: can not get img\n");
-		return (1);
+		ft_putendl_fd ("cub3d: wall_to_img: can not get image", 2);
+		return (EXIT_FAILURE);
 	}
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->ll, &img->endien);
-	if (!img->addr)
-	{
-		printf ("init_wall: can not get address\n");
-		return (1);
-	}
 	img->scr_h = y;
 	img->scr_w = x;
 	return (0);
@@ -68,10 +63,10 @@ int	init_cub(t_cub *cub)
 	cub->win = mlx_new_window(cub->mlx, SCR_W, SCR_H, TITLE);
 	init_img (cub);
 
-	init_wall (cub, &cub->wall_n, "img/wall_1.xpm");
-	init_wall (cub, &cub->wall_e, "img/wall_2.xpm");
-	init_wall (cub, &cub->wall_w, "img/wall_3.xpm");
-	init_wall (cub, &cub->wall_s, "img/wall_4.xpm");
+	wall_to_img (cub, &cub->wall_n, "img/wall_1.xpm");
+	wall_to_img (cub, &cub->wall_w, "img/wall_2.xpm");
+	wall_to_img (cub, &cub->wall_e, "img/wall_3.xpm");
+	wall_to_img (cub, &cub->wall_s, "img/wall_4.xpm");
 	
 	cub->pos_x = 22;
 	cub->pos_y = 12;

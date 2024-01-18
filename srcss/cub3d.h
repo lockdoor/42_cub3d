@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/18 09:25:17 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:02:26 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ typedef struct s_img
 	int		endien;
 }	t_img;
 
+typedef struct s_file
+{
+	char	*wall_n;
+	char	*wall_e;
+	char	*wall_w;
+	char	*wall_s;
+}	t_file;
+
 typedef struct s_cub
 {
 	// map
@@ -89,6 +97,8 @@ typedef struct s_cub
 	t_img	wall_e;
 	t_img	wall_w;
 	t_img	wall_s;
+
+	t_file	file;
 
 	double	pos_x;
 	double	pos_y;
@@ -116,12 +126,22 @@ typedef struct s_cub
 
 // debug.c
 void	print_map(int **map, int y, int x);
+void	print_list_map(void *content);
+void	print_file_wall(t_file *file);
 
 // init_cub.c
 int	init_cub(t_cub *cub);
+void	free_split(char **sp);
+
+// init_utils.c
+int	split_len(char **sp);
 
 // read_map.c
 int	read_map(t_cub *cub, char *file);
+// int	init_wall(t_cub *cub, t_img *img, t_list **lst, char *name);
+int	wall_to_img(t_cub *cub, t_img *img, char *file);
+void	init_all_wall(t_cub *cub, t_list **lst);
+void	init_file_wall(t_file *file, t_list **lst);
 
 // init_hook.c
 int	init_hook(t_cub *cub);

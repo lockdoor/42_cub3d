@@ -6,7 +6,7 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 12:51:12 by pnamnil           #+#    #+#              #
-#    Updated: 2024/01/18 10:56:39 by pnamnil          ###   ########.fr        #
+#    Updated: 2024/01/18 14:42:04 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ HEADER = srcss/cub3d.h
 SRCS = srcss/cub3d.c srcss/map.c srcss/debug.c srcss/init_cub.c \
 		srcss/init_hook.c srcss/run_cub.c srcss/draw_utils.c \
 		srcss/draw_map_2_d.c srcss/run_no_texture.c srcss/run_texture.c \
-		srcss/read_map.c
+		srcss/read_map.c srcss/init_wall.c srcss/init_utils.c
 		
 OBJS = $(SRCS:.c=.o) 
 

@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/13 05:44:12 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/18 15:24:10 by pnamnil          ###   ########.fr       */
+/*   Created: 2024/01/18 14:39:24 by pnamnil           #+#    #+#             */
+/*   Updated: 2024/01/18 14:40:51 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int argc, char **argv)
+int	split_len(char **sp)
 {
-	t_cub	cub;
+	int		i;
 
-	if (argc != 2)
-	{
-		ft_putendl_fd("CUB3D must have only one map.", 2);
-		return (EXIT_FAILURE);
-	}
-	ft_bzero(&cub, sizeof(t_cub));
-	read_map(&cub, argv[1]);
-	// (void) argv;
-	// init_cub(&cub);
-	// init_hook(&cub);
-	// run_cub(&cub);
-	// mlx_loop(cub.mlx);
-	return (0);
+	i = 0;
+	while (sp[i])
+		i++ ;
+	return (i);
+}
+
+void	free_split(char **sp)
+{
+	int	i;
+
+	i = -1;
+	while (sp[++i])
+		free (sp[i]);
+	free (sp);
 }

@@ -6,11 +6,19 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 08:52:47 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/18 10:50:40 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:21:02 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+/*
+	1. openfile if error it exit
+	2. get_next_line to t_list if error it clean list and exit
+	3. if list = NULL becouse file is empty or have only newline
+		it exit
+	4. begin collect filename for wall image
+*/
 
 int		open_1(char *file)
 {
@@ -30,14 +38,16 @@ void	get_list(t_list **lst, char *file)
 	int		fd;
 	char	*line;
 	t_list	*lstnew;
+	int		size;
 
+	size = 0;
 	fd = open_1(file);
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break;
-		if (*line == '\n')
+		if (*line == '\n' && size < 7)
 		{
 			free (line);
 			continue;
@@ -50,34 +60,39 @@ void	get_list(t_list **lst, char *file)
 			ft_lstclear(lst, &free);
 			exit(EXIT_FAILURE);
 		}
-		ft_lstadd_back(lst, ft_lstnew(line));
+		ft_lstadd_back(lst, lstnew);
+		size++ ;
 	}
 	close(fd);
-}
-
-// debug
-void	print_list_map(void *content)
-{
-	char	*s;
-
-	s = (char *)content;
-	printf("%s", s);
 }
 
 int	read_map(t_cub *cub, char *file)
 {
 	t_list	*lst;
 
-	// (void) file;
-	(void) cub;
 	lst = NULL;
 	get_list(&lst, file);
 
-	// debug
-	if (lst)
-		ft_lstiter(lst, &print_list_map);
+	(void) cub;
+	if (!lst)
+	{
+		ft_putstr_fd("cub3d: ", 2);
+		ft_putstr_fd(file, 2);
+		ft_putendl_fd(": file format error", 2);
+		exit (EXIT_FAILURE);
+	}
+	
+	// debug	
+	// ft_lstiter(lst, &print_list_map);
+
+	// init_all_wall(cub, &lst);
+	init_file_wall(&cub->file, &lst);
+	print_file_wall(&cub->file);
+
+	// debug	
+	ft_lstiter(lst, &print_list_map);
+	
 	ft_lstclear(&lst, &free);
 
 	return (0);
-	// exit (0);
 }
