@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:58:47 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 13:23:47 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 15:20:31 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,34 +109,3 @@ void	init_file_wall(t_file *file, t_list **lst)
 	*lst = free_one_node(*lst);
 }
 
-/*
-void	init_all_wall(t_cub *cub, t_list **lst)
-{
-	if (init_wall(cub, &cub->wall_n, lst, "NO"))
-	{
-		ft_lstclear(lst, &free);
-		exit (EXIT_FAILURE);
-	}
-	if (init_wall(cub, &cub->wall_n, lst, "SO"))
-	{
-		ft_lstclear(lst, &free);
-		mlx_destroy_image(cub->mlx, cub->wall_n.img);
-		exit (EXIT_FAILURE);
-	}
-	if (init_wall(cub, &cub->wall_n, lst, "WE"))
-	{
-		ft_lstclear(lst, &free);
-		mlx_destroy_image(cub->mlx, cub->wall_n.img);
-		mlx_destroy_image(cub->mlx, cub->wall_s.img);
-		exit (EXIT_FAILURE);
-	}
-	if (init_wall(cub, &cub->wall_n, lst, "EA"))
-	{
-		ft_lstclear(lst, &free);
-		mlx_destroy_image(cub->mlx, cub->wall_n.img);
-		mlx_destroy_image(cub->mlx, cub->wall_s.img);
-		mlx_destroy_image(cub->mlx, cub->wall_w.img);
-		exit (EXIT_FAILURE);
-	}
-}
-*/

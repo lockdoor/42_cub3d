@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 13:57:27 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:03:15 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_cub
 	// map
 	int		map_w;
 	int		map_h;
-	int		**map;
+	char	**map;
 	int		map_x;
 	int		map_y;
 	
@@ -179,9 +179,6 @@ int	wall_color(t_cub *cub);
 
 // run_texture.c
 void	write_texture(t_cub *cub, t_img *img, int x);
-
-// map.c
-int **make_map(void);
 
 // draw_map_2_d.c
 void	map_2_d(t_cub *cub, t_img *img);

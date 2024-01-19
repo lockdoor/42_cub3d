@@ -6,30 +6,30 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 07:16:56 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/18 07:46:59 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 15:50:59 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	pick_color(int color)
-{
-	if (color == 1)
-		return (RGB_RED);
-	else if (color == 2)
-		return (RGB_GREEN);
-	else if (color == 3)
-		return (RGB_BLUE);
-	else if (color == 4)
-		return (RGB_YELLOW);
-	return (0);
-}
+// static int	pick_color(int color)
+// {
+// 	if (color == 1)
+// 		return (RGB_RED);
+// 	else if (color == 2)
+// 		return (RGB_GREEN);
+// 	else if (color == 3)
+// 		return (RGB_BLUE);
+// 	else if (color == 4)
+// 		return (RGB_YELLOW);
+// 	return (0);
+// }
 
 static void	draw_map_2_d(t_cub *cub, t_img *img)
 {
 	int	y;
 	int	x;
-	int color;
+	// int color;
 	double	px;
 	double	py;
 
@@ -44,9 +44,9 @@ static void	draw_map_2_d(t_cub *cub, t_img *img)
 		{
 			px = x * img->pixel_x;
 			py = y * img->pixel_y;
-			color = pick_color(cub->map[(int)y][(int)x]);
-			if (color)
-				draw_square(img, px, py, color);	
+			// color = pick_color(cub->map[(int)y][(int)x]);
+			if (cub->map[(int)y][(int)x] == '1')
+				draw_square(img, px, py, RGB_RED);	
 			draw_line(img, px, py, px + img->pixel_x, py, RGB_BLUE);
 			draw_line(img, px, py, px, py + img->pixel_y, RGB_BLUE);
 			x++ ;

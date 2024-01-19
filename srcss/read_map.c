@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 08:52:47 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 13:40:42 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 15:42:55 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,6 @@ void	read_map(t_file *file, char *filename)
 	// debug	
 	// ft_lstiter(lst, &print_list_map);
 	
-	free_file(file);
+	// free_file(file);
 	ft_lstclear(&lst, &free);
 }

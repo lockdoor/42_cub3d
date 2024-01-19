@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:19:00 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/17 17:13:40 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 15:47:10 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	cal_dda(t_cub *cub)
 			cub->map_y += cub->step_y;
 			cub->side = 1;
 		}
-		if(cub->map[cub->map_x][cub->map_y] > 0)
+		if(cub->map[cub->map_x][cub->map_y] > '0')
 			hit = 1;
 	}
 }

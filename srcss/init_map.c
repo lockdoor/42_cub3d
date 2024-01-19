@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:19:34 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 14:59:25 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:01:20 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ void	flood_fill(t_file *file, t_list **lst, int x, int y)
 {
 	if (x >= file->map_w || y >= file->map_h || x < 0 || y < 0)
 		error_init_file (file, lst, "map error flood fill");
-	if (file->map[y][x] == 32)
-		error_init_file (file, lst, "map error flood fill");
 	if (file->map[y][x] == '1')
 		return ;
+	if (file->map[y][x] != '0')
+		error_init_file (file, lst, "map error flood fill");
 	file->map[y][x] = '1';
 	flood_fill (file, lst, x + 1, y);
 	flood_fill (file, lst, x - 1, y);
@@ -143,7 +143,6 @@ void	init_map(t_file *file, t_list **lst)
 	// find player position
 	if (find_player(file, file->map))
 		error_init_file(file, lst, "map error on player position");
-	
 
 	// clone map
 	map = clone_map(file);

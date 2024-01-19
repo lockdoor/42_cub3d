@@ -6,21 +6,21 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:14:02 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/18 08:25:01 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 15:57:06 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_map(t_cub *cub)
-{
-	int	y;
+// void	free_map(t_cub *cub)
+// {
+// 	int	y;
 
-	y = 0;
-	while (y < cub->map_h)
-		free (cub->map[y++]);
-	free (cub->map);
-}
+// 	y = 0;
+// 	while (y < cub->map_h)
+// 		free (cub->map[y++]);
+// 	free (cub->map);
+// }
 
 int	on_destroy(void *param)
 {
@@ -34,7 +34,8 @@ int	on_destroy(void *param)
 	mlx_destroy_image(cub->mlx, cub->mini.img);
 	mlx_destroy_image(cub->mlx, cub->main.img);
 	mlx_destroy_window(cub->mlx, cub->win);
-	free_map(cub);
+	// free_map(cub);
+	free_file(&cub->file);
 	exit (0);
 }
 
@@ -59,9 +60,9 @@ void	move(t_cub *cub, double x, double y)
 
 	next_pos_x = cub->pos_x + x * MOVE_SPEED;
 	next_pos_y = cub->pos_y + y * MOVE_SPEED;
-	if (cub->map[(int)next_pos_x][(int)cub->pos_y] == 0)
+	if (cub->map[(int)next_pos_x][(int)cub->pos_y] == '0')
 		cub->pos_x += x * MOVE_SPEED;
-	if (cub->map[(int)cub->pos_x][(int)next_pos_y] == 0)
+	if (cub->map[(int)cub->pos_x][(int)next_pos_y] == '0')
 		cub->pos_y += y * MOVE_SPEED;
 }
 
