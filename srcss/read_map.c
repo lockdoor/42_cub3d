@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 08:52:47 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/18 16:21:02 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 13:24:16 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int		open_1(char *file)
 	}
 	return (fd);
 }
+
+
 
 void	get_list(t_list **lst, char *file)
 {
@@ -66,18 +68,17 @@ void	get_list(t_list **lst, char *file)
 	close(fd);
 }
 
-int	read_map(t_cub *cub, char *file)
+void	read_map(t_file *file, char *filename)
 {
 	t_list	*lst;
 
 	lst = NULL;
-	get_list(&lst, file);
+	get_list(&lst, filename);
 
-	(void) cub;
 	if (!lst)
 	{
 		ft_putstr_fd("cub3d: ", 2);
-		ft_putstr_fd(file, 2);
+		ft_putstr_fd(filename, 2);
 		ft_putendl_fd(": file format error", 2);
 		exit (EXIT_FAILURE);
 	}
@@ -85,14 +86,25 @@ int	read_map(t_cub *cub, char *file)
 	// debug	
 	// ft_lstiter(lst, &print_list_map);
 
-	// init_all_wall(cub, &lst);
-	init_file_wall(&cub->file, &lst);
-	print_file_wall(&cub->file);
+	init_file_wall(file, &lst);
 
-	// debug	
-	ft_lstiter(lst, &print_list_map);
+	// debug
+	print_file_wall(file);
+
+	init_floor_ceil(file, &lst);
+
+	// debug
+	printf ("F: %#X\n", file->floor);
+	printf ("C: %#X\n", file->ceiling);
+
+	init_map(file, &lst);
+
+	// debug
+	print_map_char(file);
 	
+	// debug	
+	// ft_lstiter(lst, &print_list_map);
+	
+	free_file(file);
 	ft_lstclear(&lst, &free);
-
-	return (0);
 }

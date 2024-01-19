@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:58:47 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/18 16:23:42 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 13:23:47 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 char	*find_texture(t_list *lst, char *name)
 {
 	char	**sp;
-	char	*end_of_line;
+	char	*s;
 
 	if (!lst)
 		return (NULL);
@@ -33,11 +33,9 @@ char	*find_texture(t_list *lst, char *name)
 		free_split(sp);
 		return (NULL);
 	}
-	free (sp[0]);
-	free (sp);
-	end_of_line = ft_strchr(sp[1], '\n');
-	*end_of_line = 0;
-	return (sp[1]);
+	s = ft_strtrim(sp[1], "\n");
+	free_split(sp);
+	return (s);
 }
 
 /*
@@ -67,19 +65,11 @@ int	init_wall(t_cub *cub, t_img *img, t_list **lst, char *name)
 */
 
 // new algorithim collect all file before mlx_init
-void	error_init_file_wall(t_file *file, t_list **lst, char *name)
+void	error_init_file(t_file *file, t_list **lst, char *mes)
 {
-	if (file->wall_n)
-		free (file->wall_n);
-	if (file->wall_e)
-		free (file->wall_e);
-	if (file->wall_w)
-		free (file->wall_w);
-	if (file->wall_s)
-		free (file->wall_s);
-	ft_lstclear (lst, &free);
-	ft_putstr_fd ("cub3d: init_file_wall: cannot find wall: ", 2);
-	ft_putendl_fd (name, 2);
+	free_file(file);
+	ft_lstclear(lst, &free);
+	ft_putendl_fd (mes, 2);
 	exit (EXIT_FAILURE);
 }
 
@@ -100,22 +90,22 @@ void	init_file_wall(t_file *file, t_list **lst)
 {
 	file->wall_n = find_texture(*lst, "NO");
 	if (!file->wall_n)
-		error_init_file_wall(file, lst, "NO");
+		error_init_file(file, lst, "init_file_wall: cannot find wall: NO");
 	*lst = free_one_node(*lst);
 	
 	file->wall_s = find_texture(*lst, "SO");
 	if (!file->wall_s)
-		error_init_file_wall(file, lst, "SO");
+		error_init_file(file, lst, "init_file_wall: cannot find wall: SO");
 	*lst = free_one_node(*lst);
 	
 	file->wall_w = find_texture(*lst, "WE");
 	if (!file->wall_w)
-		error_init_file_wall(file, lst, "WE");
+		error_init_file(file, lst, "init_file_wall: cannot find wall: WE");
 	*lst = free_one_node(*lst);
 	
 	file->wall_e = find_texture(*lst, "EA");
 	if (!file->wall_e)
-		error_init_file_wall(file, lst, "EA");
+		error_init_file(file, lst, "init_file_wall: cannot find wall: EA");
 	*lst = free_one_node(*lst);
 }
 

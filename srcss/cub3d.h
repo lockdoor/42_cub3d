@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/18 16:02:26 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 13:23:36 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ typedef struct s_file
 	char	*wall_e;
 	char	*wall_w;
 	char	*wall_s;
+	int		floor;
+	int		ceiling;
+	int		map_w;
+	int		map_h;
+	char	**map;
 }	t_file;
 
 typedef struct s_cub
@@ -128,20 +133,36 @@ typedef struct s_cub
 void	print_map(int **map, int y, int x);
 void	print_list_map(void *content);
 void	print_file_wall(t_file *file);
+void	print_split(char **sp);
+void	print_map_char(t_file *file);
+
+// ft_free.c
+void	free_split_n(char **sp, int n);
+void	free_file (t_file *file);
 
 // init_cub.c
-int	init_cub(t_cub *cub);
+int		init_cub(t_cub *cub);
 void	free_split(char **sp);
+int		wall_to_img(t_cub *cub, t_img *img, char *file);
 
 // init_utils.c
 int	split_len(char **sp);
 
 // read_map.c
-int	read_map(t_cub *cub, char *file);
-// int	init_wall(t_cub *cub, t_img *img, t_list **lst, char *name);
-int	wall_to_img(t_cub *cub, t_img *img, char *file);
-void	init_all_wall(t_cub *cub, t_list **lst);
+void	read_map(t_file *file, char *filename);
+
+// void	init_all_wall(t_cub *cub, t_list **lst);
+
+// init_wallc.
 void	init_file_wall(t_file *file, t_list **lst);
+void	error_init_file(t_file *file, t_list **lst, char *mes);
+t_list	*free_one_node(t_list *lst);
+
+// init_floor_ceiling.c
+void	init_floor_ceil(t_file *file, t_list **lst);
+
+// init_map.c
+void	init_map(t_file *file, t_list **lst);
 
 // init_hook.c
 int	init_hook(t_cub *cub);

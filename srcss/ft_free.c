@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/13 05:44:12 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 10:47:17 by pnamnil          ###   ########.fr       */
+/*   Created: 2024/01/19 13:17:34 by pnamnil           #+#    #+#             */
+/*   Updated: 2024/01/19 13:23:19 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int argc, char **argv)
+void	free_split_n(char **sp, int n)
 {
-	t_cub	cub;
+	int	i;
 
-	if (argc != 2)
-	{
-		ft_putendl_fd("CUB3D must have only one map.", 2);
-		return (EXIT_FAILURE);
-	}
-	ft_bzero(&cub, sizeof(t_cub));
-	read_map(&cub.file, argv[1]);
-	// (void) argv;
-	// init_cub(&cub);
-	// init_hook(&cub);
-	// run_cub(&cub);
-	// mlx_loop(cub.mlx);
-	return (0);
+	i = 0;
+	while (i < n)
+		free (sp[i++]);
+	free (sp);
+}
+
+void	free_file (t_file *file)
+{
+	if (file->wall_n)
+		free (file->wall_n);
+	if (file->wall_e)
+		free (file->wall_e);
+	if (file->wall_w)
+		free (file->wall_w);
+	if (file->wall_s)
+		free (file->wall_s);
+	if (file->map)
+		free_split_n(file->map, file->map_h);
 }
