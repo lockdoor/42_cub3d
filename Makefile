@@ -6,7 +6,7 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 12:51:12 by pnamnil           #+#    #+#              #
-#    Updated: 2024/01/19 13:18:33 by pnamnil          ###   ########.fr        #
+#    Updated: 2024/01/19 14:42:13 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ LINK_LIB = -L$(LIB_DIR) -lft -L$(MLX_DIR) -lmlx
 FRAMEWORK = -framework OpenGL -framework AppKit
 
 CC = cc
-# CFLAGS = -Wall -Werror -Wextra $(INCLUDES) -g -fsanitize=address
-CFLAGS = -Wall -Werror -Wextra $(INCLUDES)
+CFLAGS = -Wall -Werror -Wextra $(INCLUDES) -g -fsanitize=address
+# CFLAGS = -Wall -Werror -Wextra $(INCLUDES)
 
 MAP = map/map_01.cub
 

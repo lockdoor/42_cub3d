@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 13:23:36 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 13:57:27 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ typedef struct s_file
 	int		ceiling;
 	int		map_w;
 	int		map_h;
+	int		player_x;
+	int		player_y;
+	char	player_view;
 	char	**map;
 }	t_file;
 
