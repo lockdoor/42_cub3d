@@ -6,11 +6,21 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 13:17:34 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 13:23:19 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:33:46 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	free_split(char **sp)
+{
+	int	i;
+
+	i = -1;
+	while (sp[++i])
+		free (sp[i]);
+	free (sp);
+}
 
 void	free_split_n(char **sp, int n)
 {

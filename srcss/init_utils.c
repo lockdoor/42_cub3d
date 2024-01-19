@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 14:39:24 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/18 14:40:51 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:33:32 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,4 @@ int	split_len(char **sp)
 	while (sp[i])
 		i++ ;
 	return (i);
-}
-
-void	free_split(char **sp)
-{
-	int	i;
-
-	i = -1;
-	while (sp[++i])
-		free (sp[i]);
-	free (sp);
 }

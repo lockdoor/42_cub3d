@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:09:27 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 15:53:12 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:52:48 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	init_all_wall(t_cub *cub, t_file *file)
 		error_init_wall_img(cub, file);
 }
 
+
+
 int	init_cub(t_cub *cub)
 {
 	// cub->map = make_map();
@@ -100,12 +102,9 @@ int	init_cub(t_cub *cub)
 
 	init_img (cub);
 	
-	cub->pos_x = (double) cub->file.player_x;
-	cub->pos_y = (double) cub->file.player_y;
-	cub->dir_x = -1;
-	cub->dir_y = 0;
-	cub->plane_x = 0;
-	cub->plane_y = 0.66;
+	cub->pos_x = (double) cub->file.player_y + 0.5;
+	cub->pos_y = (double) cub->file.player_x + 0.5;
+	init_plan(cub);
 	// cub->floor = 0x404040;
 	// cub->ceiling = 0x99FFFF;
 	cub->floor = cub->file.floor;

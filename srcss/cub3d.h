@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 16:03:15 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:34:15 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,12 +141,15 @@ void	print_map_char(t_file *file);
 
 // ft_free.c
 void	free_split_n(char **sp, int n);
-void	free_file (t_file *file);
+void	free_file(t_file *file);
+void	free_split(char **sp);
 
 // init_cub.c
 int		init_cub(t_cub *cub);
-void	free_split(char **sp);
 int		wall_to_img(t_cub *cub, t_img *img, char *file);
+
+// init_plan.c
+void	init_plan(t_cub *cub);
 
 // init_utils.c
 int	split_len(char **sp);
@@ -154,9 +157,7 @@ int	split_len(char **sp);
 // read_map.c
 void	read_map(t_file *file, char *filename);
 
-// void	init_all_wall(t_cub *cub, t_list **lst);
-
-// init_wallc.
+// init_wall.c
 void	init_file_wall(t_file *file, t_list **lst);
 void	error_init_file(t_file *file, t_list **lst, char *mes);
 t_list	*free_one_node(t_list *lst);
