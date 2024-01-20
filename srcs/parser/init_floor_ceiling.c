@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:26:46 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 09:46:31 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 10:59:45 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,17 @@ int	check_all_digit(char **sp)
 	{
 		s = ft_strtrim(*sp, " \n");
 		if (!s)
-		{
-			perror ("check_all_digit");
 			return (EXIT_FAILURE);
-		}
-		i = 0;
-		while (s[i])
+		i = -1;
+		while (s[++i])
 		{
-			if(!ft_isdigit(s[i]) || i > 2)
+			if (!ft_isdigit(s[i]) || i > 2)
 			{
 				ft_putstr_fd (s, 2);
 				ft_putendl_fd(": check_all_digit", 2);
 				free (s);
 				return (EXIT_FAILURE);
-			}	
-			i++ ;
+			}
 		}
 		free (s);
 		sp++ ;
@@ -122,7 +118,6 @@ void	init_floor_ceil(t_file *file, t_list **lst)
 	if (get_floor_ceil_color(&file->floor, *lst, 'F'))
 		error_init_file(file, lst, "cub3d: cannot init Floor");
 	*lst = free_one_node(*lst);
-
 	if (get_floor_ceil_color(&file->ceiling, *lst, 'C'))
 		error_init_file(file, lst, "cub3d: cannot init Ceiling");
 	*lst = free_one_node(*lst);

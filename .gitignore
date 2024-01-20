@@ -3,3 +3,4 @@ cub3d
 *.o
 libmlx.a
 .vscode
+cub3d.dSYM

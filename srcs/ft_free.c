@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 13:17:34 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 16:33:46 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 09:12:34 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_split_n(char **sp, int n)
 	free (sp);
 }
 
-void	free_file (t_file *file)
+void	free_file(t_file *file)
 {
 	if (file->wall_n)
 		free (file->wall_n);

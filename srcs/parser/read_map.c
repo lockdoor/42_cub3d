@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 08:52:47 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 15:42:55 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 11:21:49 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,26 @@
 		it exit
 	4. begin collect filename for wall image
 */
+t_list	*free_one_node(t_list *lst)
+{
+	t_list	*next;
 
-int		open_1(char *file)
+	next = lst->next;
+	free (lst->content);
+	free (lst);
+	return (next);
+}
+
+void	error_init_file(t_file *file, t_list **lst, char *mes)
+{
+	if (file)
+		free_file(file);
+	ft_lstclear(lst, &free);
+	ft_putendl_fd (mes, 2);
+	exit (EXIT_FAILURE);
+}
+
+int	open_1(char *file)
 {
 	int	fd;
 
@@ -32,8 +50,6 @@ int		open_1(char *file)
 	}
 	return (fd);
 }
-
-
 
 void	get_list(t_list **lst, char *file)
 {
@@ -48,20 +64,15 @@ void	get_list(t_list **lst, char *file)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			break;
+			break ;
 		if (*line == '\n' && size < 7)
 		{
 			free (line);
-			continue;
+			continue ;
 		}
 		lstnew = ft_lstnew(line);
 		if (!lstnew)
-		{
-			perror("get_list");
-			free (line);
-			ft_lstclear(lst, &free);
-			exit(EXIT_FAILURE);
-		}
+			error_init_file(NULL, lst, "error on get_list");
 		ft_lstadd_back(lst, lstnew);
 		size++ ;
 	}
@@ -74,7 +85,6 @@ void	read_map(t_file *file, char *filename)
 
 	lst = NULL;
 	get_list(&lst, filename);
-
 	if (!lst)
 	{
 		ft_putstr_fd("cub3d: ", 2);
@@ -82,29 +92,8 @@ void	read_map(t_file *file, char *filename)
 		ft_putendl_fd(": file format error", 2);
 		exit (EXIT_FAILURE);
 	}
-	
-	// debug	
-	// ft_lstiter(lst, &print_list_map);
-
 	init_file_wall(file, &lst);
-
-	// debug
-	print_file_wall(file);
-
 	init_floor_ceil(file, &lst);
-
-	// debug
-	printf ("F: %#X\n", file->floor);
-	printf ("C: %#X\n", file->ceiling);
-
 	init_map(file, &lst);
-
-	// debug
-	// print_map_char(file);
-	
-	// debug	
-	// ft_lstiter(lst, &print_list_map);
-	
-	// free_file(file);
 	ft_lstclear(&lst, &free);
 }

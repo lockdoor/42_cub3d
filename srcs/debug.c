@@ -6,23 +6,11 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 05:52:12 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 13:06:19 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 09:11:54 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	print_map(int **map, int y, int x)
-{
-	for (int i = 0; i < y; i++)
-	{
-		for (int j = 0; j < x; j++)
-		{
-			printf ("%2d", map[i][j]);
-		}
-		printf ("\n");
-	}
-}
 
 void	print_list_map(void *content)
 {

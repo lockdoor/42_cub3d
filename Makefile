@@ -6,7 +6,7 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 12:51:12 by pnamnil           #+#    #+#              #
-#    Updated: 2024/01/19 16:34:36 by pnamnil          ###   ########.fr        #
+#    Updated: 2024/01/20 11:25:09 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,11 @@ NAME = cub3d
 
 MLX_DIR = minilibx
 LIB_DIR = libft
+SRC_DIR = srcs
+HEADER = srcs/cub3d.h
 INCLUDES = 	-I$(LIB_DIR)/includes \
-			-I$(MLX_DIR)
+			-I$(MLX_DIR) \
+			-I$(SRC_DIR)
 			
 LINK_LIB = -L$(LIB_DIR) -lft -L$(MLX_DIR) -lmlx
 FRAMEWORK = -framework OpenGL -framework AppKit
@@ -26,17 +29,26 @@ CFLAGS = -Wall -Werror -Wextra $(INCLUDES)
 
 MAP = map/map_01.cub
 
-HEADER = srcss/cub3d.h
+SRCS = srcs/cub3d.c \
+		srcs/debug.c \
+		srcs/ft_free.c \
+		srcs/parser/read_map.c \
+		srcs/parser/init_wall.c \
+		srcs/parser/init_floor_ceiling.c \
+		srcs/parser/init_map.c \
+		srcs/init/init_cub.c \
+		srcs/init/init_hook.c \
+		srcs/init/init_plan.c \
+		srcs/init/init_utils.c \
+		srcs/execute/run_cub.c \
+		srcs/execute/draw_map_2_d.c \
+		srcs/execute/draw_utils.c \
+		srcs/execute/run_no_texture.c \
+		srcs/execute/run_texture.c \
 
-SRCS = srcss/cub3d.c srcss/debug.c srcss/init_cub.c srcss/init_plan.c\
-		srcss/init_hook.c srcss/run_cub.c srcss/draw_utils.c \
-		srcss/draw_map_2_d.c srcss/run_no_texture.c srcss/run_texture.c \
-		srcss/read_map.c srcss/init_wall.c srcss/init_utils.c \
-		srcss/init_floor_ceiling.c srcss/init_map.c srcss/ft_free.c
-		
 OBJS = $(SRCS:.c=.o) 
 
-all: $(NAME) $(HEADER)
+all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADER) Makefile
 	$(MAKE) -C $(LIB_DIR)
@@ -62,11 +74,12 @@ l:
 m:
 	./$(NAME) $(MAP)
 
-# norminette:
-# 	@norminette -R CheckForbiddenSourceHeader $(LIB_PATH)/*.c
-# 	@norminette -R CheckDefine $(LIB_PATH)/includes/libft.h
-# 	@norminette -R CheckForbiddenSourceHeader $(SRC_DIR)/*
-# 	@norminette -R CheckDefine $(SRC_DIR)/minishell.h
+norminette:
+	@norminette -R CheckForbiddenSourceHeader $(LIB_DIR)/*.c
+	@norminette -R CheckDefine $(LIB_DIR)/includes/libft.h
+	@norminette -R CheckForbiddenSourceHeader $(SRC_DIR)
+	@norminette -R CheckDefine $(SRC_DIR)/cub3d.h
 
 re: fclean all
 
+.PHONY: 

@@ -6,38 +6,11 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:14:02 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/19 15:57:06 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 10:56:52 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// void	free_map(t_cub *cub)
-// {
-// 	int	y;
-
-// 	y = 0;
-// 	while (y < cub->map_h)
-// 		free (cub->map[y++]);
-// 	free (cub->map);
-// }
-
-int	on_destroy(void *param)
-{
-	t_cub	*cub;
-
-	cub = (t_cub *) param;
-	mlx_destroy_image(cub->mlx, cub->wall_n.img);
-	mlx_destroy_image(cub->mlx, cub->wall_e.img);
-	mlx_destroy_image(cub->mlx, cub->wall_w.img);
-	mlx_destroy_image(cub->mlx, cub->wall_s.img);
-	mlx_destroy_image(cub->mlx, cub->mini.img);
-	mlx_destroy_image(cub->mlx, cub->main.img);
-	mlx_destroy_window(cub->mlx, cub->win);
-	// free_map(cub);
-	free_file(&cub->file);
-	exit (0);
-}
 
 //both camera direction and camera plane must be rotated
 void	rotate(t_cub *cub, double a)
@@ -55,8 +28,8 @@ void	rotate(t_cub *cub, double a)
 
 void	move(t_cub *cub, double x, double y)
 {
-	double next_pos_x;
-	double next_pos_y;
+	double	next_pos_x;
+	double	next_pos_y;
 
 	next_pos_x = cub->pos_x + x * MOVE_SPEED;
 	next_pos_y = cub->pos_y + y * MOVE_SPEED;
