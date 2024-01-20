@@ -6,7 +6,7 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 12:51:12 by pnamnil           #+#    #+#              #
-#    Updated: 2024/01/20 11:25:09 by pnamnil          ###   ########.fr        #
+#    Updated: 2024/01/20 15:15:21 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,4 +82,4 @@ norminette:
 
 re: fclean all
 
-.PHONY: 
+.PHONY: all clean fclean re

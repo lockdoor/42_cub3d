@@ -6,14 +6,14 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:14:02 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/20 10:56:52 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 13:46:39 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 //both camera direction and camera plane must be rotated
-void	rotate(t_cub *cub, double a)
+static void	rotate(t_cub *cub, double a)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -26,7 +26,7 @@ void	rotate(t_cub *cub, double a)
 	cub->plane_y = old_plane_x * sin(a) + cub->plane_y * cos(a);
 }
 
-void	move(t_cub *cub, double x, double y)
+static void	move(t_cub *cub, double x, double y)
 {
 	double	next_pos_x;
 	double	next_pos_y;
@@ -39,7 +39,7 @@ void	move(t_cub *cub, double x, double y)
 		cub->pos_y += y * MOVE_SPEED;
 }
 
-int	key_hook(int key, void *param)
+static int	key_hook(int key, void *param)
 {
 	t_cub		*cub;
 
@@ -62,7 +62,7 @@ int	key_hook(int key, void *param)
 	return (0);
 }
 
-int	mouse_hook(int key, int x, int y, void *param)
+static int	mouse_hook(int key, int x, int y, void *param)
 {
 	t_cub	*cub;
 

@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:26:46 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/20 10:59:45 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 13:45:11 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 */
 
 /* check all digit and digit length must less then four */
-int	check_all_digit(char **sp)
+static int	check_all_digit(char **sp)
 {
 	int		i;
 	char	*s;
@@ -54,7 +54,7 @@ int	check_all_digit(char **sp)
 	return (0);
 }
 
-int	get_color(int *c, char **sp)
+static int	get_color(int *c, char **sp)
 {
 	int	r;
 	int	g;
@@ -72,7 +72,7 @@ int	get_color(int *c, char **sp)
 	return (0);
 }
 
-int	get_floor_ceil_color_1(int *c, char **sp)
+static int	get_floor_ceil_color_1(int *c, char **sp)
 {
 	if (split_len(sp) != 3)
 	{
@@ -93,7 +93,7 @@ int	get_floor_ceil_color_1(int *c, char **sp)
 	return (EXIT_SUCCESS);
 }
 
-int	get_floor_ceil_color(int *c, t_list *lst, int a)
+static int	get_floor_ceil_color(int *c, t_list *lst, int a)
 {
 	char	*s;
 	char	**sp;

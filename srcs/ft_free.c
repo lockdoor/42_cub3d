@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 13:17:34 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/20 09:12:34 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 15:07:11 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	free_split(char **sp)
 	free (sp);
 }
 
+// use to free char **map becouse it not have null terminate
 void	free_split_n(char **sp, int n)
 {
 	int	i;

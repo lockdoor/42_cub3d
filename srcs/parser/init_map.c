@@ -6,30 +6,37 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:19:34 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/20 11:13:03 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 15:05:50 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	make_map_arr_2(t_file *file, char *map, char *line)
+static void	count_size(t_file *file, t_list *lst)
 {
-	char	*s;
 	int		len;
+	char	*n;
+	char	*s;
 
-	ft_memset (map, 32, file->map_w);
-	s = ft_strchr(line, '\n');
-	if (s)
-		len = ft_strlen(line) - 1;
-	else
-		len = ft_strlen(line);
-	ft_memmove(map, line, len);
+	while (lst)
+	{
+		file->map_h += 1;
+		s = (char *)lst->content;
+		n = ft_strchr(s, '\n');
+		if (n)
+			*n = 0;
+		len = (int) ft_strlen(s);
+		if (len > file->map_w)
+			file->map_w = len;
+		lst = lst->next;
+	}
 }
 
 static int	make_map_arr(t_file *file, t_list *lst)
 {
 	char	**map;
 	int		i;
+	char	*s;
 
 	map = (char **) ft_calloc (file->map_h, sizeof(char *));
 	if (!map)
@@ -43,7 +50,9 @@ static int	make_map_arr(t_file *file, t_list *lst)
 			free_split_n(map, i);
 			return (EXIT_FAILURE);
 		}
-		make_map_arr_2(file, map[i], (char *)lst->content);
+		ft_memset (map[i], 32, file->map_w);
+		s = (char *)lst->content;
+		ft_memcpy(map[i], s, ft_strlen(s));
 		lst = lst->next;
 	}
 	file->map = map;

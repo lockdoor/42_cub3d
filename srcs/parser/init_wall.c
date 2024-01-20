@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:58:47 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/20 11:13:38 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 15:04:51 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,6 @@ void	init_file_wall(t_file *file, t_list **lst)
 	if (!file->wall_e)
 		error_init_file(file, lst, "init_file_wall: cannot find wall: EA");
 	*lst = free_one_node(*lst);
-}
-
-// utility from init_map
-void	count_size(t_file *file, t_list *lst)
-{
-	int	len;
-
-	while (lst)
-	{
-		file->map_h += 1;
-		len = (int) ft_strlen((char *)lst->content);
-		if (len > file->map_w)
-			file->map_w = len;
-		lst = lst->next;
-	}
 }
 
 // utility from init_map

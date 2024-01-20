@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 08:52:47 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/20 11:21:49 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 13:44:24 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	error_init_file(t_file *file, t_list **lst, char *mes)
 	exit (EXIT_FAILURE);
 }
 
-int	open_1(char *file)
+static int	open_1(char *file)
 {
 	int	fd;
 
@@ -51,7 +51,7 @@ int	open_1(char *file)
 	return (fd);
 }
 
-void	get_list(t_list **lst, char *file)
+static void	get_list(t_list **lst, char *file)
 {
 	int		fd;
 	char	*line;
@@ -86,12 +86,7 @@ void	read_map(t_file *file, char *filename)
 	lst = NULL;
 	get_list(&lst, filename);
 	if (!lst)
-	{
-		ft_putstr_fd("cub3d: ", 2);
-		ft_putstr_fd(filename, 2);
-		ft_putendl_fd(": file format error", 2);
-		exit (EXIT_FAILURE);
-	}
+		error_init_file(file, &lst, "file format error");
 	init_file_wall(file, &lst);
 	init_floor_ceil(file, &lst);
 	init_map(file, &lst);

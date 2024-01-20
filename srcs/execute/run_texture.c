@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:23:50 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/20 10:52:19 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 13:49:25 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static double	wall_hit(t_cub *cub)
 	return (wall_x);
 }
 
-t_img	*collect_wall(t_cub *cub)
+static t_img	*collect_wall(t_cub *cub)
 {
 	if (cub->side)
 	{

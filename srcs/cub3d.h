@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:33:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/20 11:19:57 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 15:02:55 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 # define TITLE "CUB3D"
 
+// key hook
 # define ON_KEYUP 3
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17
@@ -35,15 +36,12 @@
 # define KEY_RIGHT 124
 
 // can setting window size here.
-# define MAP_W 24
-# define MAP_H 25
 # define SCR_W 1920
 # define SCR_H 1080
 # define MINI_H 320
 # define MINI_W 320
 # define TEXTURE_H 64
 # define TEXTURE_W 64
-
 # define MOVE_SPEED 0.1
 # define ROTATE_SPEED 0.1
 
@@ -145,7 +143,6 @@ void		free_split(char **sp);
 
 // init_cub.c
 int			init_cub(t_cub *cub);
-int			wall_to_img(t_cub *cub, t_img *img, char *file);
 
 // init_plan.c
 void		init_plan(t_cub *cub);
@@ -161,7 +158,6 @@ t_list		*free_one_node(t_list *lst);
 
 // init_wall.c
 void		init_file_wall(t_file *file, t_list **lst);
-void		count_size(t_file *file, t_list *lst);
 char		**clone_map(t_file *file);
 
 // init_floor_ceiling.c

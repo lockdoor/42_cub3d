@@ -6,13 +6,13 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 06:09:27 by pnamnil           #+#    #+#             */
-/*   Updated: 2024/01/20 10:54:21 by pnamnil          ###   ########.fr       */
+/*   Updated: 2024/01/20 15:18:04 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	init_img(t_cub *cub)
+static int	init_img(t_cub *cub)
 {
 	cub->mini.scr_w = MINI_W;
 	cub->mini.scr_h = MINI_H;
@@ -31,7 +31,7 @@ int	init_img(t_cub *cub)
 	return (0);
 }
 
-int	wall_to_img(t_cub *cub, t_img *img, char *file)
+static int	wall_to_img(t_cub *cub, t_img *img, char *file)
 {
 	int		x;
 	int		y;
@@ -42,7 +42,7 @@ int	wall_to_img(t_cub *cub, t_img *img, char *file)
 	if (!img->img)
 	{
 		ft_putstr_fd (file, 2);
-		ft_putendl_fd ("cub3d: wall_to_img: can not get image", 2);
+		ft_putendl_fd (": can not get image", 2);
 		return (EXIT_FAILURE);
 	}
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->ll, &img->endien);
@@ -51,7 +51,7 @@ int	wall_to_img(t_cub *cub, t_img *img, char *file)
 	return (0);
 }
 
-void	error_init_wall_img(t_cub *cub, t_file *file)
+static void	error_init_wall_img(t_cub *cub, t_file *file)
 {
 	if (cub->wall_n.img)
 		mlx_destroy_image(cub->mlx, cub->wall_n.img);
@@ -65,7 +65,7 @@ void	error_init_wall_img(t_cub *cub, t_file *file)
 	exit (EXIT_FAILURE);
 }
 
-void	init_all_wall(t_cub *cub, t_file *file)
+static void	init_all_wall(t_cub *cub, t_file *file)
 {
 	if (wall_to_img(cub, &cub->wall_n, file->wall_n))
 		error_init_wall_img(cub, file);
